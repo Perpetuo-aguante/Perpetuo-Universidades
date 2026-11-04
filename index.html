@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Perpetuo para universidades</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Un año gratuito de Perpetuo para los alumnos y docentes de tu universidad: crónica, ensayo, literatura, talleres de escritura y la oportunidad de publicar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<style>
+/* Sistema de Perpetuo (mesa-ia-literatura, escribe-con-nosotros): hojas de papel numeradas sobre el azul de la marca. */
+:root{
+  --logo:url("assets/logo.webp");
+  --azul:#074990; --rojo:#e2543b; --lima:#C3D73A; --tinta:#0D1114; --papel:#FAF6F1;
+  --papel-2:#F0E9DE; --papel-3:#E6DDCF; --gris:rgba(13,17,20,.62); --linea:rgba(13,17,20,.14);
+  --fondo:var(--azul); --sobre-fondo:rgba(250,246,241,.82);
+  --sans:"Hanken Grotesk","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mano:"Nanum Pen Script","Bradley Hand",cursive;
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --fondo:#04305f; } }
+:root[data-theme="dark"]{ --fondo:#04305f; }
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; }
+html{ scroll-behavior:smooth; overflow-x:clip; }
+body{
+  background:var(--fondo); color:var(--tinta);
+  font-family:var(--sans); font-size:16px; line-height:1.5;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden; min-height:100vh;
+}
+body::before{ /* grano de papel sobre el azul */
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.22; mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+button{ font:inherit; color:inherit; }
+:focus-visible{ outline:3px solid var(--lima); outline-offset:3px; }
+a{ color:inherit; }
+h1,h2,h3{ text-wrap:balance; }
+[hidden]{ display:none!important; }
+
+main{ position:relative; z-index:1; max-width:960px; margin:0 auto;
+  padding-block:36px 80px; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); }
+
+/* ---------------- PORTADA ---------------- */
+.top{ display:flex; justify-content:space-between; align-items:center; gap:16px; color:var(--papel); }
+.logo{ display:block; width:168px; aspect-ratio:900/153; background:var(--papel);
+  -webkit-mask:var(--logo) left center/contain no-repeat; mask:var(--logo) left center/contain no-repeat; }
+.top a.site{ font-size:14px; font-weight:700; text-decoration:none; opacity:.85; border-bottom:1.5px solid rgba(250,246,241,.4); }
+.top a.site:hover{ opacity:1; }
+
+.hero{ position:relative; color:var(--papel); padding:44px 0 40px; }
+.kicker{ display:inline-block; max-width:100%; font-size:13px; font-weight:800; letter-spacing:.02em; padding:4px 10px; border-radius:999px; background:var(--lima); color:var(--tinta); }
+.hero h1{ margin:16px 0 0; font-size:clamp(40px,7vw,78px); line-height:.94; font-weight:900; letter-spacing:-.045em; max-width:13ch; }
+.hero h1 em{ font-style:normal; color:var(--lima); }
+.hero .hola{ margin:18px 0 0; font-family:var(--mano); font-size:clamp(30px,4vw,40px); line-height:1; color:var(--lima); transform:rotate(-2deg); transform-origin:left; }
+.hero .lead{ margin:14px 0 0; font-size:18px; line-height:1.5; max-width:54ch; color:var(--sobre-fondo); }
+.hero .acts{ display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+.hero-sign{ position:absolute; right:10px; top:40px; width:124px; transform:rotate(9deg); pointer-events:none; user-select:none; }
+.hero-sign .bicho{ animation:flota 5s ease-in-out infinite; }
+@keyframes flota{ 0%,100%{ transform:translateY(0) rotate(0); } 50%{ transform:translateY(-10px) rotate(-4deg); } }
+@media (max-width:760px){ .hero-sign{ width:64px; top:22px; right:0; } .hero{ padding:30px 0 34px; } .hero .kicker{ margin-right:76px; } .hero h1{ margin-right:56px; } }
+@media (max-width:480px){ .top a.site .largo{ display:none; } }
+
+/* cifras */
+.cifras{ display:grid; grid-template-columns:repeat(4,1fr); margin:0 0 24px; padding:0; list-style:none; color:var(--papel);
+  border-top:1.5px solid rgba(250,246,241,.35); border-bottom:1.5px solid rgba(250,246,241,.35); }
+.cifras li{ padding:20px 18px 18px; border-left:1.5px solid rgba(250,246,241,.2); min-width:0; }
+.cifras li:first-child{ border-left:0; padding-left:0; }
+.cifras b{ display:block; font-size:clamp(30px,4.4vw,46px); line-height:1; font-weight:900; letter-spacing:-.04em; color:var(--lima); font-variant-numeric:tabular-nums; }
+.cifras span{ display:block; margin-top:8px; font-size:14px; font-weight:700; line-height:1.3; color:var(--sobre-fondo); }
+@media (max-width:700px){
+  .cifras{ grid-template-columns:1fr 1fr; }
+  .cifras li{ padding:16px 0 14px 16px; }
+  .cifras li:nth-child(odd){ border-left:0; padding-left:0; }
+  .cifras li:nth-child(n+3){ border-top:1.5px solid rgba(250,246,241,.2); }
+}
+
+/* ---------------- HOJAS ---------------- */
+.sheet{
+  position:relative; z-index:2; background:var(--papel); border-radius:3px; margin-bottom:44px; scroll-margin-top:20px;
+  box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 40px 70px -28px rgba(0,0,0,.55), 0 12px 24px -12px rgba(0,0,0,.3);
+}
+.sheet::before{ /* perforación superior */
+  content:""; position:absolute; left:0; right:0; top:-6px; height:12px;
+  background:radial-gradient(circle at 8px 6px, var(--fondo) 3.4px, transparent 3.8px) 0 0/16px 12px repeat-x;
+}
+.sheet-head{ display:flex; align-items:baseline; gap:16px; padding:22px 44px 18px; border-bottom:1.5px solid var(--tinta); }
+.sheet-head b{ font-size:22px; font-weight:900; letter-spacing:-.03em; color:var(--rojo); font-variant-numeric:tabular-nums; }
+.sheet-head span{ font-size:13px; font-weight:700; color:var(--gris); text-transform:uppercase; letter-spacing:.06em; }
+.sheet-body{ padding:34px 44px 40px; }
+@media (max-width:560px){ .sheet-head{ padding:18px 18px 14px; } .sheet-body{ padding:26px 18px 30px; } }
+.sheet h2{ margin:0; font-size:clamp(30px,4.6vw,46px); line-height:.98; font-weight:900; letter-spacing:-.04em; max-width:20ch; }
+.sheet h2 em{ font-style:normal; color:var(--azul); }
+.sheet .sub{ margin:12px 0 28px; color:var(--gris); max-width:60ch; font-size:17px; }
+.sheet h3.mini{ margin:40px 0 4px; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--rojo); }
+
+/* 01 · el piloto */
+.piloto{ display:grid; grid-template-columns:1fr 1fr; gap:0 36px; margin:0; padding:0; list-style:none; border-top:1px solid var(--linea); }
+.piloto li{ display:grid; grid-template-columns:40px 1fr; gap:14px; padding:20px 0; border-bottom:1px solid var(--linea); min-width:0; }
+.piloto .ico{ width:40px; height:40px; border-radius:50%; display:grid; place-items:center; color:var(--papel); }
+.piloto .ico svg{ width:20px; height:20px; }
+.piloto h3{ margin:0; font-size:19px; font-weight:900; letter-spacing:-.025em; line-height:1.15; }
+.piloto p{ margin:5px 0 0; font-size:15px; line-height:1.45; color:rgba(13,17,20,.75); }
+@media (max-width:700px){ .piloto{ grid-template-columns:1fr; } }
+.sello{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 22px; margin-top:28px; padding:18px 22px; background:var(--lima); border-radius:3px; transform:rotate(-.6deg); }
+.sello b{ font-size:clamp(24px,3.4vw,32px); font-weight:900; letter-spacing:-.04em; line-height:1; }
+.sello span{ font-size:15.5px; font-weight:600; max-width:52ch; }
+
+.g-rojo{ background:var(--rojo); } .g-azul{ background:var(--azul); } .g-lima{ background:var(--lima); color:var(--tinta)!important; }
+.g-tinta{ background:var(--tinta); } .g-papel{ background:var(--papel-3); color:var(--tinta)!important; }
+
+/* 02 · por qué */
+.razones{ display:grid; grid-template-columns:1fr 1fr; gap:0 36px; margin:0; padding:0; list-style:none; }
+.razones li{ padding:16px 0 16px 30px; position:relative; border-top:1px solid var(--linea); min-width:0; }
+.razones li::before{ content:""; position:absolute; left:0; top:28px; width:16px; height:2.5px; background:var(--rojo); }
+.razones h3{ margin:0; font-size:18px; font-weight:900; letter-spacing:-.02em; color:var(--azul); }
+.razones p{ margin:4px 0 0; font-size:15px; color:rgba(13,17,20,.78); }
+@media (max-width:700px){ .razones{ grid-template-columns:1fr; } }
+
+.lector{ display:grid; grid-template-columns:200px 1fr; gap:28px; align-items:center; margin-top:36px; padding:26px 28px; background:var(--papel-2); border-radius:3px; }
+.lector img{ width:100%; height:auto; display:block; }
+.lector .tag{ font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--rojo); }
+.lector h3{ margin:4px 0 12px; font-size:clamp(22px,3vw,28px); font-weight:900; letter-spacing:-.035em; line-height:1.05; }
+.rasgos{ display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; list-style:none; }
+.rasgos li{ font-size:14px; font-weight:700; padding:5px 12px; border:1.5px solid var(--tinta); border-radius:999px; }
+@media (max-width:600px){ .lector{ grid-template-columns:1fr; padding:22px 18px; } .lector img{ width:140px; } }
+
+.linea-t{ position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:22px 0 0; padding:0; list-style:none; }
+.linea-t::before{ content:""; position:absolute; left:12%; right:12%; top:9px; height:2px; background:var(--tinta); }
+.linea-t li{ position:relative; text-align:center; font-size:13px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; line-height:1.3; min-width:0; }
+.linea-t li::before{ content:""; display:block; width:20px; height:20px; margin:0 auto 10px; border-radius:50%; background:var(--tinta); position:relative; }
+.linea-t li b{ display:block; font-size:16px; letter-spacing:.02em; }
+.linea-t li.yo{ color:var(--azul); }
+.linea-t li.yo::before{ background:var(--azul); box-shadow:0 0 0 5px var(--lima); }
+.nota{ margin:18px 0 0; font-size:15px; color:var(--gris); max-width:62ch; }
+@media (max-width:560px){ .linea-t li{ font-size:11px; } .linea-t li b{ font-size:14px; } }
+
+/* 03 · qué van a leer */
+.secciones{ list-style:none; margin:0; padding:0; border-top:1px solid var(--linea); }
+.seccion{ display:grid; grid-template-columns:64px 1fr; gap:18px; align-items:center; padding:16px 0; border-bottom:1px solid var(--linea); }
+.glyph{ width:64px; height:64px; border-radius:2px; display:grid; place-items:center; font-weight:900; font-size:22px; letter-spacing:-.03em; line-height:1; color:var(--papel); }
+.seccion small{ display:block; font-size:13px; font-weight:700; color:var(--azul); }
+.seccion h3{ margin:1px 0 0; font-size:21px; font-weight:900; letter-spacing:-.03em; line-height:1.1; }
+.seccion p{ margin:5px 0 0; font-size:15px; line-height:1.45; color:rgba(13,17,20,.75); max-width:60ch; }
+@media (max-width:560px){ .seccion{ grid-template-columns:48px 1fr; gap:14px; align-items:start; } .glyph{ width:48px; height:48px; font-size:17px; } }
+
+.muestras{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:16px; }
+.muestras.dos{ grid-template-columns:repeat(2,1fr); }
+.pieza{ margin:0; min-width:0; }
+.pieza .img{ aspect-ratio:16/10; border-radius:3px; overflow:hidden; background:var(--papel-3); border:1.5px solid var(--tinta); }
+.pieza .img img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s var(--ease-out); }
+.pieza:hover .img img{ transform:scale(1.04); }
+.pieza .img.sin{ display:grid; place-items:center; background:var(--tinta); color:var(--papel); padding:18px; text-align:center; }
+.pieza .img.sin b{ font-size:clamp(22px,2.6vw,28px); font-weight:900; letter-spacing:-.04em; line-height:1; }
+.pieza figcaption{ padding-top:12px; }
+.pieza .tipo{ font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--gris); }
+.pieza h4{ margin:3px 0 0; font-size:19px; font-weight:900; letter-spacing:-.03em; line-height:1.12; }
+.pieza .autor{ margin:4px 0 0; font-size:14.5px; font-weight:700; }
+.pieza .premio{ margin:2px 0 0; font-size:13.5px; font-weight:700; color:var(--rojo); }
+@media (max-width:760px){ .muestras{ grid-template-columns:1fr 1fr; } }
+@media (max-width:480px){ .muestras, .muestras.dos{ grid-template-columns:1fr; } }
+
+/* 04 · cómo funciona */
+.pasos{ list-style:none; margin:0; padding:0; counter-reset:p; }
+.paso{ position:relative; display:grid; grid-template-columns:56px 1fr; gap:20px; padding-bottom:30px; }
+.paso:last-child{ padding-bottom:0; }
+.paso::after{ content:""; position:absolute; left:27px; top:56px; bottom:0; width:2px; background:repeating-linear-gradient(180deg,var(--tinta) 0 6px,transparent 6px 12px); }
+.paso:last-child::after{ display:none; }
+.paso .n{ width:56px; height:56px; border-radius:50%; display:grid; place-items:center; font-size:24px; font-weight:900; letter-spacing:-.03em; color:var(--papel); background:var(--azul); }
+.paso:nth-child(2) .n{ background:var(--rojo); } .paso:nth-child(3) .n{ background:var(--tinta); } .paso:nth-child(4) .n{ background:var(--lima); color:var(--tinta); }
+.paso h3{ margin:12px 0 0; font-size:22px; font-weight:900; letter-spacing:-.03em; line-height:1.1; }
+.paso p{ margin:6px 0 0; font-size:15.5px; color:rgba(13,17,20,.78); max-width:58ch; }
+.paso .opcional{ display:inline-block; margin-left:8px; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; padding:2px 8px; border-radius:999px; background:var(--papel-3); vertical-align:middle; }
+.caminos{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px; max-width:600px; }
+.camino{ padding:14px 16px; border:1.5px solid var(--tinta); border-radius:3px; min-width:0; }
+.camino b{ display:block; font-size:16px; font-weight:900; letter-spacing:-.02em; }
+.camino span{ display:block; margin-top:2px; font-size:14px; color:rgba(13,17,20,.72); line-height:1.4; }
+.camino .o{ display:inline; margin:0; font-family:var(--mano); font-size:24px; line-height:.8; color:var(--rojo); }
+@media (max-width:520px){ .caminos{ grid-template-columns:1fr; } }
+.reporte{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; padding:0; list-style:none; }
+.reporte li{ font-size:13.5px; font-weight:700; padding:4px 11px; border-radius:999px; background:var(--papel-2); border:1px solid var(--linea); }
+
+/* 05 · cierre */
+.cierre{ background:var(--tinta); color:var(--papel); }
+.cierre .sheet-head{ border-color:rgba(250,246,241,.25); }
+.cierre .sheet-head b{ color:var(--lima); }
+.cierre .sheet-head span{ color:rgba(250,246,241,.7); }
+.cierre h2{ font-size:clamp(40px,7vw,74px); line-height:.94; letter-spacing:-.045em; max-width:12ch; }
+.cierre h2 em{ color:var(--lima); }
+.cierre .sub{ color:rgba(250,246,241,.8); font-size:18px; }
+.cierre-sign{ position:absolute; z-index:3; right:30px; bottom:100%; margin-bottom:-8px; width:96px; transform:rotate(6deg); transform-origin:50% 100%; pointer-events:none; }
+.cierre-sign .bicho{ animation:flota 4s ease-in-out infinite; }
+.sheet.cierre{ margin-top:110px; }
+@media (max-width:560px){ .sheet.cierre{ margin-top:80px; } .cierre-sign{ width:62px; right:14px; } }
+.contactos{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:6px 0 0; }
+.contacto{ padding:18px 20px; border:1.5px solid rgba(250,246,241,.3); border-radius:3px; min-width:0; }
+.contacto small{ display:block; font-size:13px; font-weight:700; color:rgba(250,246,241,.62); }
+.contacto b{ display:block; margin-top:2px; font-size:20px; font-weight:900; letter-spacing:-.03em; }
+.contacto .mail{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-top:12px; }
+.contacto .mail code{ font-family:var(--sans); font-size:16px; font-weight:700; color:var(--lima); user-select:all; overflow-wrap:anywhere; }
+.copiar{ appearance:none; border:1.5px solid rgba(250,246,241,.45); background:transparent; border-radius:999px; padding:5px 12px; font-size:13px; font-weight:800; cursor:pointer; color:var(--papel); transition:background-color .2s, color .2s; }
+.copiar:hover{ background:var(--papel); color:var(--tinta); }
+@media (max-width:640px){ .contactos{ grid-template-columns:1fr; } }
+.send{ display:flex; flex-wrap:wrap; align-items:center; gap:14px 20px; margin-top:26px; padding-top:24px; border-top:1px solid rgba(250,246,241,.18); }
+.send .fine{ font-size:14px; color:rgba(250,246,241,.65); max-width:44ch; }
+
+.btn{
+  appearance:none; border:0; border-radius:999px; cursor:pointer; display:inline-flex; align-items:center; gap:10px;
+  font-weight:800; font-size:17px; letter-spacing:-.01em; padding:15px 30px; background:var(--tinta); color:var(--papel);
+  transition:transform .18s var(--ease-out), background-color .2s, opacity .2s; text-decoration:none;
+}
+.btn:hover{ transform:translateY(-2px); }
+.btn:active{ transform:translateY(1px); }
+.btn--lima{ background:var(--lima); color:var(--tinta); }
+.btn--red{ background:var(--rojo); color:var(--papel); }
+.btn--ghost{ background:transparent; color:var(--papel); border:1.5px solid rgba(250,246,241,.55); padding:13.5px 24px; }
+.btn svg{ width:18px; height:18px; }
+
+/* muñecos: cuerpo + brazos y piernas sueltos que giran sobre su articulación */
+.bicho{ display:block; position:relative; width:100%; }
+.bicho img{ position:absolute; inset:0; width:100%; height:100%; }
+.bicho .c{ animation:bob calc(var(--t) / 2) var(--d,0s) ease-in-out infinite alternate; }
+.bicho .p{ transform-origin:var(--ox) var(--oy); animation:paso var(--t) var(--d,0s) ease-in-out infinite alternate; }
+.bicho .p.b{ animation-direction:alternate-reverse; }
+.bicho{ --t:.7s; }
+@keyframes paso{ from{ transform:rotate(calc(var(--a) * -1)); } to{ transform:rotate(var(--a)); } }
+@keyframes bob{ from{ transform:translateY(0); } to{ transform:translateY(-2.5%); } }
+
+footer{ color:rgba(250,246,241,.65); font-size:13.5px; display:flex; flex-wrap:wrap; gap:8px 24px; justify-content:space-between; }
+footer a{ color:var(--papel); }
+
+/* ---------------- PASOS (una sección a la vez) ---------------- */
+.indice{ display:flex; gap:6px; margin:22px 0 0; padding:0 0 4px; list-style:none; overflow-x:auto; scrollbar-width:none; }
+.indice::-webkit-scrollbar{ display:none; }
+.indice a{ display:block; white-space:nowrap; text-decoration:none; font-size:13.5px; font-weight:800; padding:7px 13px; border-radius:999px;
+  color:var(--papel); border:1.5px solid rgba(250,246,241,.3); transition:background-color .2s, color .2s, border-color .2s; }
+.indice a:hover{ border-color:var(--papel); }
+.indice a[aria-current="step"]{ background:var(--papel); color:var(--tinta); border-color:var(--papel); }
+.indice a small{ font-size:inherit; color:var(--rojo); margin-right:6px; font-variant-numeric:tabular-nums; }
+.indice a[aria-current="step"] small{ color:var(--rojo); }
+.js .slide:not(.on){ display:none; }
+.js .slide.on{ animation:entra .45s var(--ease-out); }
+@keyframes entra{ from{ opacity:.4; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+.slide.sheet{ margin-top:30px; }
+.slide.sheet.cierre{ margin-top:120px; }
+@media (max-width:560px){ .slide.sheet.cierre{ margin-top:90px; } }
+main{ padding-bottom:calc(120px + env(safe-area-inset-bottom, 0px)); }
+
+.barra{ position:fixed; z-index:20; left:0; right:0; bottom:0;
+  padding-bottom:calc(14px + env(safe-area-inset-bottom, 0px)); padding-top:14px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px));
+  background:linear-gradient(180deg, transparent, rgba(4,30,60,.55) 40%); pointer-events:none; }
+.barra-in{ pointer-events:auto; max-width:920px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px;
+  background:var(--tinta); color:var(--papel); border-radius:999px; padding:8px; box-shadow:0 18px 40px -16px rgba(0,0,0,.6); }
+.nav-btn{ appearance:none; border:0; cursor:pointer; display:inline-flex; align-items:center; gap:8px; border-radius:999px;
+  font-weight:800; font-size:15.5px; padding:12px 18px; transition:transform .18s var(--ease-out), background-color .2s, opacity .2s; min-width:0; }
+.nav-btn svg{ width:18px; height:18px; flex:none; }
+.nav-btn.atras{ background:transparent; color:var(--papel); }
+.nav-btn.atras:hover{ background:rgba(250,246,241,.12); }
+.nav-btn.atras:disabled{ opacity:.3; cursor:default; background:transparent; }
+.nav-btn.sig{ background:var(--lima); color:var(--tinta); }
+.nav-btn.sig span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.nav-btn.sig:hover{ transform:translateX(2px); }
+.puntos{ display:flex; gap:7px; margin:0; padding:0; list-style:none; }
+.puntos button{ appearance:none; border:0; padding:0; width:9px; height:9px; border-radius:50%; background:rgba(250,246,241,.3); cursor:pointer; transition:width .3s var(--ease-out), background-color .2s; }
+.puntos button[aria-current="step"]{ width:26px; border-radius:999px; background:var(--lima); }
+@media (max-width:560px){ .nav-btn.atras span, .nav-btn.sig .nom{ display:none; } .nav-btn{ padding:12px 15px; font-size:15px; } .puntos{ gap:5px; } }
+@media (max-width:380px){ .puntos{ display:none; } }
+
+/* destacadas */
+.destacadas{ display:grid; grid-template-columns:1.35fr 1fr; grid-template-rows:auto auto; gap:22px 24px; }
+.destacadas .grande{ grid-row:span 2; }
+.destacadas .grande .img{ aspect-ratio:4/3.4; }
+.destacadas .grande h4{ font-size:clamp(22px,2.8vw,28px); }
+.destacadas .pieza:not(.grande){ display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+.destacadas .pieza:not(.grande) .img{ aspect-ratio:1/1; }
+.destacadas .pieza:not(.grande) figcaption{ padding-top:0; }
+.destacadas .pieza:not(.grande) .img.sin b{ font-size:19px; }
+@media (max-width:720px){ .destacadas{ grid-template-columns:1fr; } .destacadas .grande{ grid-row:auto; } }
+.secciones-mini{ display:grid; grid-template-columns:repeat(3,1fr); gap:0 24px; margin:6px 0 0; padding:0; list-style:none; }
+.secciones-mini li{ display:grid; grid-template-columns:44px 1fr; gap:12px; align-items:center; padding:14px 0; border-top:1px solid var(--linea); min-width:0; }
+.secciones-mini .glyph{ width:44px; height:44px; font-size:15px; }
+.secciones-mini h3{ margin:0; font-size:17px; font-weight:900; letter-spacing:-.02em; line-height:1.1; }
+.secciones-mini p{ margin:3px 0 0; font-size:14px; line-height:1.35; color:rgba(13,17,20,.72); }
+@media (max-width:760px){ .secciones-mini{ grid-template-columns:1fr 1fr; } }
+@media (max-width:460px){ .secciones-mini{ grid-template-columns:1fr; } }
+
+/* agenda */
+.cierre .agendar{ font-size:19px; padding:18px 34px; }
+.cierre .fine{ margin:24px 0 0; padding-top:20px; border-top:1px solid rgba(250,246,241,.18); font-size:14px; color:rgba(250,246,241,.65); }
+
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } *{ transition:none!important; animation:none!important; } }
+</style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <a href="https://perpetuo.global" target="_blank" rel="noopener" aria-label="Perpetuo"><span class="logo" role="img" aria-label="Perpetuo"></span></a>
+    <a class="site" href="#hablemos">Agendemos<span class="largo"> una reunión</span> →</a>
+  </header>
+  <ol class="indice" id="indice" aria-label="Secciones"></ol>
+
+  <section class="slide portada" id="inicio" data-nombre="Inicio" aria-label="Portada">
+  <div class="hero">
+    <div class="hero-sign" aria-hidden="true"><span class="bicho" data-b="exclamacion"></span></div>
+    <span class="kicker" id="kicker">Para universidades · Piloto gratuito de un año</span>
+    <h1>Llevemos la mejor literatura en español a <em id="uni">tu universidad</em>.</h1>
+    <p class="hola">¡Queremos colaborar!</p>
+    <p class="lead">Los alumnos no han dejado de leer: leen más que nunca, pero en línea y en espacios donde predomina el inglés. Perpetuo publica periodismo narrativo, ensayo, escritura creativa y pódcast en español, tres veces por semana. Te proponemos un año de acceso gratuito para tu comunidad.</p>
+    <div class="acts">
+      <a class="btn btn--lima" href="#piloto">Ver la propuesta
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 12l6 6 6-6"/></svg></a>
+      <a class="btn btn--ghost" href="#hablemos">Agendemos una reunión</a>
+    </div>
+  </div>
+
+  <ul class="cifras" aria-label="Perpetuo en cifras">
+    <li><b>+500</b><span>textos publicados</span></li>
+    <li><b>~50,000</b><span>lectores al mes</span></li>
+    <li><b>6,000</b><span>suscriptores al newsletter</span></li>
+    <li><b>79</b><span>países, los 21 de habla hispana</span></li>
+  </ul>
+  </section>
+
+  <!-- 01 · EL PILOTO -->
+  <section class="sheet slide" id="piloto" data-nombre="La propuesta" aria-labelledby="hPiloto">
+    <div class="sheet-head"><b>01</b><span>La propuesta</span></div>
+    <div class="sheet-body">
+      <h2 id="hPiloto">Un año de Perpetuo, <em>gratis</em>, para tu comunidad.</h2>
+      <p class="sub">Un piloto masivo: abrimos Perpetuo completo a los alumnos y docentes que tu universidad elija, durante doce meses.</p>
+      <ul class="piloto">
+        <li>
+          <span class="ico g-azul" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0"/></svg></span>
+          <div><h3>Acceso gratuito por un año</h3><p>Para alumnos, docentes o ambos. Sin costo para la universidad ni para quien lee.</p></div>
+        </li>
+        <li>
+          <span class="ico g-rojo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"/></svg></span>
+          <div><h3>Todo nuestro contenido</h3><p>Crónicas de largo aliento, análisis de coyuntura sobre todo el mundo hispanohablante y un semanario de literatura.</p></div>
+        </li>
+        <li>
+          <span class="ico g-tinta" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19l3-1 11-11-2-2L5 16zM14 7l2 2"/><path d="M13 20h7"/></svg></span>
+          <div><h3>Pláticas y talleres de escritura</h3><p>Colaboramos con la comunidad en charlas o talleres, con nuestro equipo editorial y nuestros autores.</p></div>
+        </li>
+        <li>
+          <span class="ico g-lima" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg></span>
+          <div><h3>Sus textos, en la revista</h3><p>Los alumnos pueden mandarnos sus textos y los consideramos para publicarlos en Perpetuo.</p></div>
+        </li>
+      </ul>
+      <div class="sello"><b>Sin costo.</b><span>La universidad solo nos dice a quién activar. Nosotros nos encargamos del resto y les reportamos cómo va.</span></div>
+    </div>
+  </section>
+  <!-- QUÉ VAN A LEER -->
+  <section class="sheet slide" id="contenido" data-nombre="Qué van a leer" aria-labelledby="hContenido">
+    <div class="sheet-head"><b>02</b><span>Qué van a leer</span></div>
+    <div class="sheet-body">
+      <h2 id="hContenido">Las historias que nadie más está <em>contando</em>.</h2>
+      <p class="sub">Crónicas de largo aliento escritas por autores premiados. Así se ve lo que publicamos.</p>
+      <div class="destacadas">
+        <figure class="pieza grande">
+          <div class="img"><img src="assets/img/violencia.webp" alt="Ilustración estilo cerámica griega con músicos de corridos"></div>
+          <figcaption><span class="tipo">Crónica</span><h4>Dos formas de narrar la violencia</h4><p class="autor">Dahlia de la Cerda</p><p class="premio">Longlist del International Booker Prize</p></figcaption>
+        </figure>
+        <figure class="pieza">
+          <div class="img sin"><b>Haití, la revuelta eterna</b></div>
+          <figcaption><span class="tipo">Crónica</span><h4>Haití, la revuelta eterna</h4><p class="autor">Juan Martínez d'Aubuisson</p><p class="premio">Premio Ortega y Gasset 2024 · Premio Gabo 2025</p></figcaption>
+        </figure>
+        <figure class="pieza">
+          <div class="img"><img src="assets/img/sobreviviente.webp" alt="Diagrama de trayectorias de aviones"></div>
+          <figcaption><span class="tipo">Crónica</span><h4>El sobreviviente contrafáctico</h4><p class="autor">Javier Sinay</p><p class="premio">Premio Gabo 2015</p></figcaption>
+        </figure>
+      </div>
+
+      <h3 class="mini">Todo lo que trae la revista · tres veces por semana</h3>
+      <ul class="secciones-mini">
+        <li><span class="glyph g-lima" aria-hidden="true">ES</span><div><h3>Estelares</h3><p>Crónica de largo aliento.</p></div></li>
+        <li><span class="glyph g-azul" aria-hidden="true">AN</span><div><h3>Los anteojos</h3><p>Ensayo y análisis de coyuntura.</p></div></li>
+        <li><span class="glyph g-rojo" aria-hidden="true">CR</span><div><h3>El creativo</h3><p>Semanario de literatura: relatos y poemas.</p></div></li>
+        <li><span class="glyph g-tinta" aria-hidden="true">MC</span><div><h3>Masa Crítica</h3><p>Pódcast con Juan Villoro, Leo Zuckermann y más.</p></div></li>
+        <li><span class="glyph g-papel" aria-hidden="true">RE</span><div><h3>Recomendaciones</h3><p>Libros, cine y cartelera cada mes.</p></div></li>
+        <li><span class="glyph g-rojo" aria-hidden="true">+500</span><div><h3>Archivo completo</h3><p>Todo lo publicado, abierto durante el piloto.</p></div></li>
+      </ul>
+    </div>
+  </section>
+  <!-- 02 · POR QUÉ -->
+  <section class="sheet slide" id="por-que" data-nombre="Por qué Perpetuo" aria-labelledby="hPorQue">
+    <div class="sheet-head"><b>03</b><span>Por qué Perpetuo</span></div>
+    <div class="sheet-body">
+      <h2 id="hPorQue">¡Es hora de que el español se atreva <em>a más</em>!</h2>
+      <p class="sub">Para formar lectores críticos en español hace falta periodismo y cultura de calidad en nuestro idioma, y encontrar a los lectores donde ya están: en el mundo digital.</p>
+      <ul class="razones">
+        <li><h3>Hablamos desde el español</h3><p>Cubrimos lo global desde una perspectiva hispana. Material directo para comunicación, ciencias sociales y humanidades.</p></li>
+        <li><h3>Una puerta de entrada para sus alumnos</h3><p>Perpetuo publica voces nuevas. Para muchos estudiantes puede ser su primera publicación remunerada.</p></li>
+        <li><h3>Las mejores historias, con los mejores autores</h3><p>Reportamos las historias en español que nadie está contando, con autores premiados.</p></li>
+        <li><h3>Eventos y oportunidades</h3><p>Perpetuo es una comunidad cultural: organizamos encuentros y actividades para nuestros lectores.</p></li>
+        <li><h3>Un archivo que se puede usar en clase</h3><p>Más de 500 textos, con acceso completo durante todo el piloto.</p></li>
+        <li><h3>Hecho para leerse en pantalla</h3><p>Llega al correo y se lee en el teléfono, donde los alumnos ya leen todos los días.</p></li>
+      </ul>
+
+      <div class="lector">
+        <img src="assets/img/lector.webp" alt="El personaje de Perpetuo leyendo un libro rojo" width="400" height="400">
+        <div>
+          <span class="tag">Quién nos lee hoy</span>
+          <h3>Un lector joven, bicultural y profundamente literario.</h3>
+          <ul class="rasgos">
+            <li>Menor de 35 años</li><li>Con maestría</li><li>Habla español e inglés</li><li>Lee The New Yorker, The Atlantic y El País</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="mini">Perpetuo nace digital</h3>
+      <ol class="linea-t" aria-label="Revistas de referencia en español por año de fundación">
+        <li><b>1976</b>El País, Proceso</li>
+        <li><b>1978</b>Nexos</li>
+        <li><b>1999</b>Letras Libres, Gatopardo</li>
+        <li class="yo"><b>2025</b>Perpetuo</li>
+      </ol>
+      <p class="nota">Las grandes publicaciones en español nacieron en papel. Perpetuo nace digital: pensada desde el primer día para leerse en internet. Respaldada por OSV y Emergent Ventures.</p>
+    </div>
+  </section>
+  <!-- 04 · CÓMO FUNCIONA -->
+  <section class="sheet slide" id="como-funciona" data-nombre="Cómo funciona" aria-labelledby="hComo">
+    <div class="sheet-head"><b>04</b><span>Cómo funciona</span></div>
+    <div class="sheet-body">
+      <h2 id="hComo">Cuatro pasos y tu comunidad <em>ya está leyendo</em>.</h2>
+      <p class="sub">El trabajo operativo corre por nuestra cuenta. A la universidad le pedimos solo el primer paso.</p>
+      <ol class="pasos">
+        <li class="paso">
+          <span class="n" aria-hidden="true">1</span>
+          <div>
+            <h3>Nos dicen a quién activar</h3>
+            <p>Hay dos caminos; la universidad elige el que le acomode.</p>
+            <div class="caminos">
+              <div class="camino"><b>Una lista</b><span>Nos comparten los correos de los alumnos o docentes que participarán.</span></div>
+              <div class="camino"><b><span class="o">o</span> Un enlace abierto</b><span>Les mandamos un link de acceso para que cualquiera de la comunidad se registre.</span></div>
+            </div>
+          </div>
+        </li>
+        <li class="paso">
+          <span class="n" aria-hidden="true">2</span>
+          <div><h3>Los damos de alta en Perpetuo</h3><p>Activamos su acceso completo en la plataforma. Empiezan a recibir Perpetuo en su correo y pueden leer todo el archivo.</p></div>
+        </li>
+        <li class="paso">
+          <span class="n" aria-hidden="true">3</span>
+          <div>
+            <h3>Medimos y les reportamos</h3>
+            <p>Monitoreamos la activación y el uso, y entregamos un reporte a la universidad.</p>
+            <ul class="reporte" aria-label="Qué incluye el reporte"><li>Activación de accesos</li><li>Uso y lectura</li></ul>
+          </div>
+        </li>
+        <li class="paso">
+          <span class="n" aria-hidden="true">4</span>
+          <div><h3>Plática o taller <span class="opcional">Si les interesa</span></h3><p>Organizamos con ustedes una plática o un taller de escritura para la comunidad.</p></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+  <!-- AGENDEMOS -->
+  <section class="sheet cierre slide" id="hablemos" data-nombre="Agendemos" aria-labelledby="hHablemos">
+    <div class="sheet-head"><b>05</b><span>Siguiente paso</span></div>
+    <div class="cierre-sign" aria-hidden="true"><span class="bicho" data-b="interrogacion"></span></div>
+    <div class="sheet-body">
+      <h2 id="hHablemos">Agendemos <em>una reunión</em>.</h2>
+      <p class="sub">En una llamada definimos a quién activamos y cuándo arrancamos. Escoge el horario que te acomode: son 30 minutos.</p>
+      <a class="btn btn--lima agendar" id="agendar" href="https://app.apollo.io/#/meet/Tomas/30-min" target="_blank" rel="noopener">Agendar llamada
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></a>
+      <p class="fine">Mientras tanto, puedes leer Perpetuo en <a href="https://perpetuo.global" target="_blank" rel="noopener">perpetuo.global</a>.</p>
+    </div>
+  </section>
+
+  <nav class="barra" aria-label="Navegación entre secciones">
+    <div class="barra-in">
+      <button class="nav-btn atras" id="atras" type="button" aria-label="Sección anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span>Anterior</span></button>
+      <ol class="puntos" id="puntos"></ol>
+      <button class="nav-btn sig" id="sig" type="button"><span id="sigTxt">Siguiente</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </nav>
+
+  <footer>
+    <span>© Perpetuo · <a href="https://perpetuo.global" target="_blank" rel="noopener">perpetuo.global</a></span>
+    <span>Instagram y Facebook: @esperpetuo</span>
+  </footer>
+</main>
+
+<script>
+/* Personalización: ?u=UNAM cambia el saludo de la portada. */
+(() => {
+  let u = "";
+  try { u = (new URLSearchParams(location.search).get("u") || "").trim().slice(0, 60); } catch (e) {}
+  if (!u) return;
+  document.getElementById("uni").textContent = u;
+  document.getElementById("kicker").textContent = "Propuesta para " + u + " · Piloto gratuito de un año";
+  document.title = "Perpetuo para " + u;
+})();
+
+/* ---------------- pasos ---------------- */
+
+document.documentElement.classList.add("js");
+const slides = [...document.querySelectorAll(".slide")];
+const indice = document.getElementById("indice"), puntos = document.getElementById("puntos");
+const atras = document.getElementById("atras"), sig = document.getElementById("sig"), sigTxt = document.getElementById("sigTxt");
+slides.forEach((sl, i) => {
+  const n = sl.dataset.nombre;
+  indice.insertAdjacentHTML("beforeend", `<li><a href="#${sl.id}">${i ? `<small>0${i}</small>` : ""}${n}</a></li>`);
+  puntos.insertAdjacentHTML("beforeend", `<li><button type="button" data-i="${i}" aria-label="Ir a ${n}"></button></li>`);
+});
+let actual = -1;
+function ir(i, enfocar) {
+  i = Math.max(0, Math.min(slides.length - 1, i));
+  if (i === actual) return;
+  actual = i;
+  slides.forEach((sl, k) => sl.classList.toggle("on", k === i));
+  indice.querySelectorAll("a").forEach((a, k) => k === i ? a.setAttribute("aria-current", "step") : a.removeAttribute("aria-current"));
+  puntos.querySelectorAll("button").forEach((b, k) => k === i ? b.setAttribute("aria-current", "step") : b.removeAttribute("aria-current"));
+  atras.disabled = i === 0;
+  const ultimo = i === slides.length - 1;
+  sig.hidden = ultimo;
+  if (!ultimo) sigTxt.innerHTML = i === 0 ? "Ver la propuesta" : 'Siguiente<span class="nom">: ' + slides[i + 1].dataset.nombre + "</span>";
+  const act = indice.querySelectorAll("a")[i]; act && act.scrollIntoView({ block: "nearest", inline: "center" });
+  if (location.hash.slice(1) !== slides[i].id) try { history.replaceState(null, "", "#" + slides[i].id); } catch (e) {}
+  if (enfocar) {
+    window.scrollTo({ top: 0, behavior: "auto" });
+    const h = slides[i].querySelector("h1, h2"); if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+  }
+}
+const porId = id => slides.findIndex(sl => sl.id === id);
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href^="#"]'); if (!a) return;
+  const i = porId(a.getAttribute("href").slice(1)); if (i < 0) return;
+  e.preventDefault(); ir(i, true);
+});
+puntos.addEventListener("click", e => { const b = e.target.closest("button"); if (b) ir(+b.dataset.i, true); });
+atras.addEventListener("click", () => ir(actual - 1, true));
+sig.addEventListener("click", () => ir(actual + 1, true));
+document.addEventListener("keydown", e => {
+  if (e.target.closest("input, textarea") || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === "ArrowRight") ir(actual + 1, true);
+  if (e.key === "ArrowLeft") ir(actual - 1, true);
+});
+window.addEventListener("hashchange", () => { const i = porId(location.hash.slice(1)); if (i >= 0) ir(i, true); });
+ir(Math.max(0, porId(location.hash.slice(1))), false);
+
+/* muñecos: cada signo partido en cuerpo + extremidades (assets/partes). ox/oy: articulación en %; a: amplitud; b: contrafase. */
+const BICHOS = {
+  punto:         { w: 300, h: 267, p: [[19.7, 18.3, 14, 1], [75.2, 59.8, 14, 0], [37.7, 71.1, 18, 0], [59.2, 71.2, 18, 1]] },
+  coma:          { w: 187, h: 300, p: [[72.9, 78.1, 18, 1], [41.4, 81.8, 18, 0]] },
+  exclamacion:   { w: 220, h: 300, p: [[67.6, 59.5, 14, 0], [27.9, 58.8, 14, 1], [57.8, 76.3, 18, 1], [25.4, 82.9, 18, 0]] },
+  interrogacion: { w: 213, h: 300, p: [[56.3, 81.7, 18, 1], [27.4, 83.8, 18, 0]] }
+};
+document.querySelectorAll(".bicho").forEach(el => {
+  const n = el.dataset.b, b = BICHOS[n];
+  el.style.aspectRatio = b.w + " / " + b.h;
+  el.innerHTML = b.p.map(([ox, oy, a, fase], i) =>
+    `<img class="p${fase ? " b" : ""}" alt="" src="assets/partes/${n}-${i}.webp" style="--ox:${ox}%;--oy:${oy}%;--a:${a}deg">`).join("") +
+    `<img class="c" alt="" src="assets/partes/${n}-cuerpo.webp">`;
+});
+</script>
+</body>
+</html>
