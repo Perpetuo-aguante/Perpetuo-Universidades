@@ -356,8 +356,6 @@ dialog.panel-lectura::backdrop{ background:rgba(13,17,20,.45); }
 .pl-txt h2{ margin:6px 0 0; font-size:clamp(28px,4.4vw,40px); line-height:1; font-weight:900; letter-spacing:-.04em; }
 .pl-txt .autor{ margin:10px 0 0; font-size:16px; font-weight:800; }
 .pl-txt .premio{ margin:2px 0 0; font-size:14px; font-weight:700; color:var(--rojo); }
-.pl-txt .extracto{ position:relative; margin:22px 0 0; font-size:17.5px; line-height:1.65; color:var(--texto-2); }
-.pl-txt .extracto::first-letter{ font-size:3.1em; font-weight:900; float:left; line-height:.85; margin:6px 8px 0 0; color:var(--tinta); }
 .pl-txt .btn{ margin-top:26px; }
 @media (max-width:560px){ .pl-txt{ padding:22px 18px 0; } }
 
@@ -677,7 +675,6 @@ function abrirTexto(t) {
           <h2 id="plTitulo">${esc(t.titulo)}</h2>
           <p class="autor">${esc(t.autor)}</p>
           ${t.premio ? `<p class="premio">${esc(t.premio)}</p>` : ""}
-          ${t.extracto ? `<p class="extracto">${esc(t.extracto.trim().replace(/[.…\s]+$/, ""))}…</p>` : ""}
           <a class="btn btn--azul" href="${esc(url)}" target="_blank" rel="noopener">Leer en Perpetuo
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
         </div>

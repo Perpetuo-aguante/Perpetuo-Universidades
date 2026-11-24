@@ -269,14 +269,14 @@ function vMetricas() {
       <h2>Frecuencia de los pódcasts</h2>
       <p class="ayuda">Completa la frase de la portada: «textos nuevos tres veces por semana <b>y …</b>». Si la dejas vacía, la frase solo habla de los textos.</p>
       <label class="field"><span class="lbl">Frecuencia<small>opcional</small></span>
-        <input class="input" data-ajuste="podcastsFrecuencia" value="${esc(c.ajustes.podcastsFrecuencia)}" placeholder="un episodio por semana" maxlength="60">
+        <input class="input" data-ajuste="podcastsFrecuencia" value="${esc(c.ajustes.podcastsFrecuencia)}" placeholder="episodios nuevos dos veces por semana" maxlength="60">
         ${c.ajustes.podcastsFrecuencia ? "" : '<span class="ayuda aviso">Pendiente: falta la frecuencia real de publicación.</span>'}</label>
     </div>`;
 }
 
 /* textos destacados */
 function vTextos() {
-  return `<p class="ayuda" style="margin:-8px 0 14px">El primero sale en grande. Al hacer clic en una tarjeta, la página abre un panel con la foto, el extracto y el botón «Leer en Perpetuo».</p>` +
+  return `<p class="ayuda" style="margin:-8px 0 14px">El primero sale en grande. Al hacer clic en una tarjeta, la página abre un panel con la foto y el botón «Leer en Perpetuo».</p>` +
     c.textos.map((t, i) => `
     <div class="item${t.id === nuevoId ? " nuevo" : ""}" data-id="${esc(t.id)}">
       ${orden("textos", i)}
@@ -284,7 +284,6 @@ function vTextos() {
         <div class="fila">${campo("textos", i, "titulo", "Título", { max: 140 })}${campo("textos", i, "autor", "Autor", { max: 80 })}</div>
         <div class="fila">${campo("textos", i, "seccion", "Sección", { opciones: SECCIONES })}${campo("textos", i, "premio", "Premio del autor", { opc: 1, max: 120, ph: "Premio Gabo 2025" })}</div>
         ${campo("textos", i, "url", "URL en perpetuo.global", { tipo: "url", ph: "https://www.perpetuo.global/p/…", ayuda: t.url ? "" : "Sin URL, el botón «Leer en Perpetuo» lleva a la portada de perpetuo.global.", aviso: !t.url })}
-        ${campo("textos", i, "extracto", "Extracto", { area: 1, opc: 1, max: 900, ayuda: "Uno o dos párrafos del inicio del texto. Es lo que se lee en el panel." })}
         ${imagenCampo("textos", i, "imagen", { vacio: "Foto pendiente" })}
       </div>
       ${borrar("textos", i, t.titulo)}
@@ -359,7 +358,7 @@ $("#vista").addEventListener("click", e => {
   }
   if (agregar) {
     const k = agregar.dataset.agregar, id = k[0] + Date.now().toString(36);
-    const vacioDe = { textos: { id, titulo: "", autor: "", seccion: "Estelar", imagen: "", url: "", extracto: "", premio: "" },
+    const vacioDe = { textos: { id, titulo: "", autor: "", seccion: "Estelar", imagen: "", url: "", premio: "" },
       premios: { id, autor: "", premio: "", anio: "" }, logos: { id, nombre: "", imagen: "", url: "" } }[k];
     c[k].push(vacioDe); nuevoId = id; marcarSucio(true); pintar();
   }

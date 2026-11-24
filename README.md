@@ -53,4 +53,4 @@ Con `CONFIG.API_URL` vacío (así viene), la página muestra el contenido inicia
 El contenido público se guarda 60 segundos en `CacheService` y se borra con cada "Guardar". En el navegador se guarda la última versión, para que la página aparezca al instante.
 
 ## Leer los textos ahí mismo
-perpetuo.global vive en Substack. Cada tarjeta abre un panel con la portada, el extracto y el botón "Leer en Perpetuo". Si se confirma que Substack deja mostrar los posts dentro de otra página, cambia `CONFIG.LEER_EN_IFRAME` a `true` y el panel mostrará el texto completo en un iframe.
+perpetuo.global vive en Substack. Cada tarjeta abre un panel con la portada, el título, el autor y el botón "Leer en Perpetuo". Si se confirma que Substack deja mostrar los posts dentro de otra página, cambia `CONFIG.LEER_EN_IFRAME` a `true` y el panel mostrará el texto completo en un iframe.

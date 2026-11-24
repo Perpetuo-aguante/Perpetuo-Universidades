@@ -25,19 +25,17 @@ const SEMILLA = {
     { id: "paises", valor: "79", etiqueta: "países, los 21 de habla hispana" }
   ],
   ajustes: {
-    podcastsFrecuencia: "", // p. ej. «un episodio por semana»; vacío = la frase solo habla de los textos
+    podcastsFrecuencia: "episodios nuevos dos veces por semana", // completa «textos nuevos tres veces por semana y …»; vacío = la frase solo habla de los textos
     fotoLector: "assets/img/lector.webp"
   },
   textos: [
     { id: "violencia", titulo: "Dos formas de narrar la violencia", autor: "Dahlia de la Cerda", seccion: "Estelar",
-      imagen: "assets/img/violencia.webp", url: "https://www.perpetuo.global/p/dos-formas-de-narrar-la-violencia", premio: "Longlist del International Booker Prize", extracto: "" },
+      imagen: "assets/img/violencia.webp", url: "https://www.perpetuo.global/p/dos-formas-de-narrar-la-violencia", premio: "Longlist del International Booker Prize" },
     { id: "haiti", titulo: "Haití, la revuelta eterna", autor: "Juan Martínez d’Aubuisson", seccion: "Estelar",
       imagen: "assets/img/haiti.webp",
-      url: "https://www.perpetuo.global/p/haiti-la-revuelta-eterna", premio: "Premio Ortega y Gasset 2024 · Premio Gabo 2025",
-      extracto: "En lo que fue un instituto público, cerca de Fort Nationale, en los linderos de ese diez por ciento de Puerto Príncipe que aún no ha caído en poder de los bandidos, se apiñan como pueden casi 200 familias. Han convertido aquello en un campo de refugiados." },
+      url: "https://www.perpetuo.global/p/haiti-la-revuelta-eterna", premio: "Premio Ortega y Gasset 2024 · Premio Gabo 2025" },
     { id: "sobreviviente", titulo: "El sobreviviente contrafáctico", autor: "Javier Sinay", seccion: "Estelar",
-      imagen: "assets/img/sobreviviente.webp", url: "https://www.perpetuo.global/p/el-sobreviviente-contrafactico", premio: "Premio Gabo 2015",
-      extracto: "Atenas, una mañana de verano: sin apuro, Antonis Mavropoulos bebe un café en la cocina de su casa. La luz del sol baña su rostro: nariz alargada, barba gris, entrecejo preciso. Este es el rostro del único pasajero que se salvó de un accidente aeronáutico que dejó ciento cincuenta y siete muertos." }
+      imagen: "assets/img/sobreviviente.webp", url: "https://www.perpetuo.global/p/el-sobreviviente-contrafactico", premio: "Premio Gabo 2015" }
   ],
   premios: [
     { id: "p1", autor: "Juan Martínez d’Aubuisson", premio: "Premio Ortega y Gasset", anio: "2024" },
@@ -70,7 +68,7 @@ function normalizar(c) {
   return {
     metricas: lista(c.metricas, ["valor", "etiqueta"]),
     ajustes: { ...SEMILLA.ajustes, ...(c.ajustes || {}) },
-    textos: lista(c.textos, ["titulo", "autor", "seccion", "imagen", "url", "extracto", "premio"]),
+    textos: lista(c.textos, ["titulo", "autor", "seccion", "imagen", "url", "premio"]),
     premios: lista(c.premios, ["autor", "premio", "anio"]),
     logos: lista(c.logos, ["nombre", "imagen", "url"])
   };
