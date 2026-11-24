@@ -5,23 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Perpetuo para universidades</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Un año gratuito de Perpetuo para los alumnos y docentes de tu universidad: crónica, ensayo, literatura, talleres de escritura y la oportunidad de publicar.">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Un año gratuito de Perpetuo para los alumnos y docentes de tu universidad: crónica, ensayo, literatura, pódcasts, talleres de escritura y la oportunidad de publicar.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <style>
-/* Sistema de Perpetuo (mesa-ia-literatura, escribe-con-nosotros): hojas de papel numeradas sobre el azul de la marca. */
+/* Sistema de Perpetuo (mesa-ia-literatura, escribe-con-nosotros): hojas de papel numeradas, ahora sobre el off-white de la marca. */
 :root{
   --logo:url("assets/logo.webp");
   --azul:#074990; --rojo:#e2543b; --lima:#C3D73A; --tinta:#0D1114; --papel:#FAF6F1;
   --papel-2:#F0E9DE; --papel-3:#E6DDCF; --gris:rgba(13,17,20,.62); --linea:rgba(13,17,20,.14);
-  --fondo:var(--azul); --sobre-fondo:rgba(250,246,241,.82);
+  --texto-2:rgba(13,17,20,.78);
+  --fondo:var(--papel);
   --sans:"Hanken Grotesk","Helvetica Neue",Helvetica,Arial,sans-serif;
   --mano:"Nanum Pen Script","Bradley Hand",cursive;
   --ease-out:cubic-bezier(.16,1,.3,1);
+  color-scheme:light;
 }
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --fondo:#04305f; } }
-:root[data-theme="dark"]{ --fondo:#04305f; }
 *,*::before,*::after{ box-sizing:border-box; }
 html,body{ margin:0; }
 html{ scroll-behavior:smooth; overflow-x:clip; }
@@ -30,61 +31,65 @@ body{
   font-family:var(--sans); font-size:16px; line-height:1.5;
   -webkit-font-smoothing:antialiased; overflow-x:hidden; min-height:100vh;
 }
-body::before{ /* grano de papel sobre el azul */
-  content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.22; mix-blend-mode:soft-light;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+body::before{ /* grano de papel */
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.35; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.07 0 0 0 0 0.08 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 button{ font:inherit; color:inherit; }
-:focus-visible{ outline:3px solid var(--lima); outline-offset:3px; }
+:focus-visible{ outline:3px solid var(--azul); outline-offset:3px; }
 a{ color:inherit; }
 h1,h2,h3{ text-wrap:balance; }
 [hidden]{ display:none!important; }
+[tabindex="-1"]:focus{ outline:none; }
+.sr{ position:absolute!important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
 main{ position:relative; z-index:1; max-width:960px; margin:0 auto;
   padding-block:36px 80px; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); }
+@media (min-width:761px){ main{ padding-right:max(96px, env(safe-area-inset-right, 0px)); padding-left:max(96px, env(safe-area-inset-left, 0px)); max-width:1080px; } }
 
 /* ---------------- PORTADA ---------------- */
-.top{ display:flex; justify-content:space-between; align-items:center; gap:16px; color:var(--papel); }
-.logo{ display:block; width:168px; aspect-ratio:900/153; background:var(--papel);
+.top{ display:flex; justify-content:space-between; align-items:center; gap:16px; color:var(--tinta); }
+.logo{ display:block; width:168px; aspect-ratio:900/153; background:var(--tinta);
   -webkit-mask:var(--logo) left center/contain no-repeat; mask:var(--logo) left center/contain no-repeat; }
-.top a.site{ font-size:14px; font-weight:700; text-decoration:none; opacity:.85; border-bottom:1.5px solid rgba(250,246,241,.4); }
-.top a.site:hover{ opacity:1; }
+.top a.site{ font-size:14px; font-weight:700; text-decoration:none; color:var(--azul); border-bottom:1.5px solid currentColor; }
+.top a.site:hover{ color:var(--tinta); }
 
-.hero{ position:relative; color:var(--papel); padding:44px 0 40px; }
-.kicker{ display:inline-block; max-width:100%; font-size:13px; font-weight:800; letter-spacing:.02em; padding:4px 10px; border-radius:999px; background:var(--lima); color:var(--tinta); }
-.hero h1{ margin:16px 0 0; font-size:clamp(40px,7vw,78px); line-height:.94; font-weight:900; letter-spacing:-.045em; max-width:13ch; }
-.hero h1 em{ font-style:normal; color:var(--lima); }
-.hero .hola{ margin:18px 0 0; font-family:var(--mano); font-size:clamp(30px,4vw,40px); line-height:1; color:var(--lima); transform:rotate(-2deg); transform-origin:left; }
-.hero .lead{ margin:14px 0 0; font-size:18px; line-height:1.5; max-width:54ch; color:var(--sobre-fondo); }
+.hero{ position:relative; color:var(--tinta); padding:52px 0 40px; }
+.hero h1{ margin:0; font-size:clamp(40px,7vw,78px); line-height:.94; font-weight:900; letter-spacing:-.045em; max-width:13ch; }
+.hero h1 em{ font-style:normal; color:var(--azul); }
+.hero .hola{ margin:18px 0 0; font-family:var(--mano); font-size:clamp(30px,4vw,40px); line-height:1; color:var(--rojo); transform:rotate(-2deg); transform-origin:left; }
+.hero .lead{ margin:14px 0 0; font-size:18px; line-height:1.5; max-width:54ch; color:var(--texto-2); }
 .hero .acts{ display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
 .hero-sign{ position:absolute; right:10px; top:40px; width:124px; transform:rotate(9deg); pointer-events:none; user-select:none; }
 .hero-sign .bicho{ animation:flota 5s ease-in-out infinite; }
 @keyframes flota{ 0%,100%{ transform:translateY(0) rotate(0); } 50%{ transform:translateY(-10px) rotate(-4deg); } }
-@media (max-width:760px){ .hero-sign{ width:64px; top:22px; right:0; } .hero{ padding:30px 0 34px; } .hero .kicker{ margin-right:76px; } .hero h1{ margin-right:56px; } }
+@media (max-width:760px){ .hero-sign{ width:64px; top:22px; right:0; } .hero{ padding:30px 0 34px; } .hero h1{ margin-right:56px; } }
 @media (max-width:480px){ .top a.site .largo{ display:none; } }
 
 /* cifras */
-.cifras{ display:grid; grid-template-columns:repeat(4,1fr); margin:0 0 24px; padding:0; list-style:none; color:var(--papel);
-  border-top:1.5px solid rgba(250,246,241,.35); border-bottom:1.5px solid rgba(250,246,241,.35); }
-.cifras li{ padding:20px 18px 18px; border-left:1.5px solid rgba(250,246,241,.2); min-width:0; }
+.cifras{ display:grid; grid-template-columns:repeat(4,1fr); margin:0 0 24px; padding:0; list-style:none; color:var(--tinta);
+  border-top:1.5px solid var(--tinta); border-bottom:1.5px solid var(--tinta); }
+.cifras li{ padding:20px 18px 18px; border-left:1.5px solid var(--linea); min-width:0; }
 .cifras li:first-child{ border-left:0; padding-left:0; }
-.cifras b{ display:block; font-size:clamp(30px,4.4vw,46px); line-height:1; font-weight:900; letter-spacing:-.04em; color:var(--lima); font-variant-numeric:tabular-nums; }
-.cifras span{ display:block; margin-top:8px; font-size:14px; font-weight:700; line-height:1.3; color:var(--sobre-fondo); }
+.cifras b{ display:block; font-size:clamp(30px,4.4vw,46px); line-height:1; font-weight:900; letter-spacing:-.04em; color:var(--azul); font-variant-numeric:tabular-nums; min-height:1em; }
+.cifras span{ display:block; margin-top:8px; font-size:14px; font-weight:700; line-height:1.3; color:var(--texto-2); }
+.cifras.cargando b{ color:transparent; background:var(--papel-3); border-radius:4px; width:3.2ch; animation:late 1.2s ease-in-out infinite; }
+@keyframes late{ 50%{ opacity:.5; } }
 @media (max-width:700px){
   .cifras{ grid-template-columns:1fr 1fr; }
   .cifras li{ padding:16px 0 14px 16px; }
   .cifras li:nth-child(odd){ border-left:0; padding-left:0; }
-  .cifras li:nth-child(n+3){ border-top:1.5px solid rgba(250,246,241,.2); }
+  .cifras li:nth-child(n+3){ border-top:1.5px solid var(--linea); }
 }
 
 /* ---------------- HOJAS ---------------- */
 .sheet{
-  position:relative; z-index:2; background:var(--papel); border-radius:3px; margin-bottom:44px; scroll-margin-top:20px;
-  box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 40px 70px -28px rgba(0,0,0,.55), 0 12px 24px -12px rgba(0,0,0,.3);
+  position:relative; z-index:2; background:var(--papel); border:1.5px solid var(--tinta); border-radius:3px; margin-bottom:44px; scroll-margin-top:20px;
+  box-shadow:0 30px 50px -34px rgba(13,17,20,.45), 0 10px 20px -16px rgba(13,17,20,.2);
 }
 .sheet::before{ /* perforación superior */
-  content:""; position:absolute; left:0; right:0; top:-6px; height:12px;
-  background:radial-gradient(circle at 8px 6px, var(--fondo) 3.4px, transparent 3.8px) 0 0/16px 12px repeat-x;
+  content:""; position:absolute; left:0; right:0; top:-7px; height:12px;
+  background:radial-gradient(circle at 8px 6px, var(--tinta) 3.4px, transparent 3.8px) 0 0/16px 12px repeat-x; opacity:.85;
 }
 .sheet-head{ display:flex; align-items:baseline; gap:16px; padding:22px 44px 18px; border-bottom:1.5px solid var(--tinta); }
 .sheet-head b{ font-size:22px; font-weight:900; letter-spacing:-.03em; color:var(--rojo); font-variant-numeric:tabular-nums; }
@@ -96,7 +101,19 @@ main{ position:relative; z-index:1; max-width:960px; margin:0 auto;
 .sheet .sub{ margin:12px 0 28px; color:var(--gris); max-width:60ch; font-size:17px; }
 .sheet h3.mini{ margin:40px 0 4px; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--rojo); }
 
-/* 01 · el piloto */
+/* personajes (ilustraciones fijas de la hoja de marca) */
+.pj{ display:block; height:auto; user-select:none; pointer-events:none; }
+
+/* quién nos lee */
+.lector{ display:grid; grid-template-columns:240px 1fr; gap:36px; align-items:center; }
+.lector img{ width:100%; height:auto; display:block; }
+.lector h2{ max-width:16ch; }
+.lector .sub{ margin-bottom:22px; }
+.rasgos{ display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; list-style:none; }
+.rasgos li{ font-size:15px; font-weight:700; padding:6px 13px; border:1.5px solid var(--tinta); border-radius:999px; }
+@media (max-width:640px){ .lector{ grid-template-columns:1fr; gap:18px; } .lector img{ width:150px; } }
+
+/* la propuesta */
 .piloto{ display:grid; grid-template-columns:1fr 1fr; gap:0 36px; margin:0; padding:0; list-style:none; border-top:1px solid var(--linea); }
 .piloto li{ display:grid; grid-template-columns:40px 1fr; gap:14px; padding:20px 0; border-bottom:1px solid var(--linea); min-width:0; }
 .piloto .ico{ width:40px; height:40px; border-radius:50%; display:grid; place-items:center; color:var(--papel); }
@@ -107,72 +124,106 @@ main{ position:relative; z-index:1; max-width:960px; margin:0 auto;
 .sello{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 22px; margin-top:28px; padding:18px 22px; background:var(--lima); border-radius:3px; transform:rotate(-.6deg); }
 .sello b{ font-size:clamp(24px,3.4vw,32px); font-weight:900; letter-spacing:-.04em; line-height:1; }
 .sello span{ font-size:15.5px; font-weight:600; max-width:52ch; }
-
 .g-rojo{ background:var(--rojo); } .g-azul{ background:var(--azul); } .g-lima{ background:var(--lima); color:var(--tinta)!important; }
-.g-tinta{ background:var(--tinta); } .g-papel{ background:var(--papel-3); color:var(--tinta)!important; }
+.g-tinta{ background:var(--tinta); }
 
-/* 02 · por qué */
-.razones{ display:grid; grid-template-columns:1fr 1fr; gap:0 36px; margin:0; padding:0; list-style:none; }
-.razones li{ padding:16px 0 16px 30px; position:relative; border-top:1px solid var(--linea); min-width:0; }
-.razones li::before{ content:""; position:absolute; left:0; top:28px; width:16px; height:2.5px; background:var(--rojo); }
-.razones h3{ margin:0; font-size:18px; font-weight:900; letter-spacing:-.02em; color:var(--azul); }
-.razones p{ margin:4px 0 0; font-size:15px; color:rgba(13,17,20,.78); }
-@media (max-width:700px){ .razones{ grid-template-columns:1fr; } }
+/* por qué: tarjetas con personaje */
+.razones{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin:8px 0 0; padding:0; list-style:none; }
+.razones li{ position:relative; padding:22px 20px 22px; background:var(--papel-2); border-radius:4px; min-width:0; display:flex; flex-direction:column; }
+.razones .pj{ height:86px; width:auto; max-width:100%; margin:0 0 16px; object-fit:contain; object-position:left bottom; }
+.razones h3{ margin:0; font-size:19px; font-weight:900; letter-spacing:-.025em; line-height:1.15; color:var(--tinta); }
+.razones h3::before{ content:""; display:block; width:22px; height:3px; background:var(--rojo); margin-bottom:10px; }
+.razones p{ margin:8px 0 0; font-size:15px; line-height:1.45; color:var(--texto-2); }
+@media (max-width:860px){ .razones{ grid-template-columns:1fr 1fr; } }
+@media (max-width:520px){ .razones{ grid-template-columns:1fr; } .razones li{ display:grid; grid-template-columns:72px 1fr; gap:0 14px; align-items:start; } .razones .pj{ height:64px; margin:2px 0 0; grid-row:span 2; } }
 
-.lector{ display:grid; grid-template-columns:200px 1fr; gap:28px; align-items:center; margin-top:36px; padding:26px 28px; background:var(--papel-2); border-radius:3px; }
-.lector img{ width:100%; height:auto; display:block; }
-.lector .tag{ font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--rojo); }
-.lector h3{ margin:4px 0 12px; font-size:clamp(22px,3vw,28px); font-weight:900; letter-spacing:-.035em; line-height:1.05; }
-.rasgos{ display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; list-style:none; }
-.rasgos li{ font-size:14px; font-weight:700; padding:5px 12px; border:1.5px solid var(--tinta); border-radius:999px; }
-@media (max-width:600px){ .lector{ grid-template-columns:1fr; padding:22px 18px; } .lector img{ width:140px; } }
-
-.linea-t{ position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:22px 0 0; padding:0; list-style:none; }
-.linea-t::before{ content:""; position:absolute; left:12%; right:12%; top:9px; height:2px; background:var(--tinta); }
-.linea-t li{ position:relative; text-align:center; font-size:13px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; line-height:1.3; min-width:0; }
-.linea-t li::before{ content:""; display:block; width:20px; height:20px; margin:0 auto 10px; border-radius:50%; background:var(--tinta); position:relative; }
-.linea-t li b{ display:block; font-size:16px; letter-spacing:.02em; }
-.linea-t li.yo{ color:var(--azul); }
-.linea-t li.yo::before{ background:var(--azul); box-shadow:0 0 0 5px var(--lima); }
+/* línea del tiempo a escala real */
+.linea-scroll{ margin:14px 0 0; overflow-x:auto; overscroll-behavior-x:contain; -webkit-overflow-scrolling:touch; padding:0 2px 6px; }
+.linea-t{ position:relative; height:176px; min-width:100%; margin:0; padding:0; list-style:none; }
+@media (max-width:640px){ .linea-t{ min-width:620px; } }
+.linea-t .eje{ position:absolute; left:16px; right:16px; top:88px; height:2px; background:var(--tinta); }
+.linea-t .tic{ position:absolute; top:-4px; width:1.5px; height:10px; background:var(--tinta); opacity:.4; transform:translateX(-50%); }
+.linea-t .hito{ position:absolute; top:0; bottom:0; width:0; }
+.linea-t .hito::before{ content:""; position:absolute; top:79px; left:-10px; width:20px; height:20px; border-radius:50%; background:var(--tinta); }
+.linea-t .hito::after{ content:""; position:absolute; left:-.75px; width:1.5px; background:var(--tinta); opacity:.35; }
+.linea-t .hito.abajo::after{ top:99px; height:14px; }
+.linea-t .hito.arriba::after{ top:65px; height:14px; }
+.linea-t .txt{ position:absolute; width:max-content; max-width:180px; font-size:13px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; line-height:1.3; transform:translateX(-50%); text-align:center; }
+.linea-t .hito.abajo .txt{ top:116px; }
+.linea-t .hito.arriba .txt{ bottom:116px; }
+.linea-t .hito.izq .txt{ transform:translateX(-10px); text-align:left; }
+.linea-t .hito.der .txt{ transform:translateX(calc(-100% + 10px)); text-align:right; }
+.linea-t .txt b{ display:block; font-size:16px; letter-spacing:.02em; }
+.linea-t .hito.yo .txt{ color:var(--azul); }
+.linea-t .hito.yo::before{ background:var(--azul); box-shadow:0 0 0 5px var(--lima); }
+.linea-ayuda{ display:none; margin:4px 0 0; font-size:13px; font-weight:700; color:var(--gris); }
+@media (max-width:640px){ .linea-ayuda{ display:block; } }
 .nota{ margin:18px 0 0; font-size:15px; color:var(--gris); max-width:62ch; }
-@media (max-width:560px){ .linea-t li{ font-size:11px; } .linea-t li b{ font-size:14px; } }
 
-/* 03 · qué van a leer */
-.secciones{ list-style:none; margin:0; padding:0; border-top:1px solid var(--linea); }
-.seccion{ display:grid; grid-template-columns:64px 1fr; gap:18px; align-items:center; padding:16px 0; border-bottom:1px solid var(--linea); }
-.glyph{ width:64px; height:64px; border-radius:2px; display:grid; place-items:center; font-weight:900; font-size:22px; letter-spacing:-.03em; line-height:1; color:var(--papel); }
-.seccion small{ display:block; font-size:13px; font-weight:700; color:var(--azul); }
-.seccion h3{ margin:1px 0 0; font-size:21px; font-weight:900; letter-spacing:-.03em; line-height:1.1; }
-.seccion p{ margin:5px 0 0; font-size:15px; line-height:1.45; color:rgba(13,17,20,.75); max-width:60ch; }
-@media (max-width:560px){ .seccion{ grid-template-columns:48px 1fr; gap:14px; align-items:start; } .glyph{ width:48px; height:48px; font-size:17px; } }
-
-.muestras{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:16px; }
-.muestras.dos{ grid-template-columns:repeat(2,1fr); }
+/* qué van a leer */
 .pieza{ margin:0; min-width:0; }
-.pieza .img{ aspect-ratio:16/10; border-radius:3px; overflow:hidden; background:var(--papel-3); border:1.5px solid var(--tinta); }
+.pieza > button{ all:unset; display:block; width:100%; cursor:pointer; border-radius:3px; }
+.pieza > button:focus-visible{ outline:3px solid var(--azul); outline-offset:4px; }
+.pieza .img{ aspect-ratio:16/10; border-radius:3px; overflow:hidden; background:var(--papel-3); border:1.5px solid var(--tinta); position:relative; }
 .pieza .img img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s var(--ease-out); }
 .pieza:hover .img img{ transform:scale(1.04); }
-.pieza .img.sin{ display:grid; place-items:center; background:var(--tinta); color:var(--papel); padding:18px; text-align:center; }
-.pieza .img.sin b{ font-size:clamp(22px,2.6vw,28px); font-weight:900; letter-spacing:-.04em; line-height:1; }
+.pieza .img.sin{ display:grid; place-items:center; background:var(--papel-2); color:var(--gris); padding:18px; text-align:center; border-style:dashed; }
+.pieza .img.sin b{ font-size:13px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+.pieza .leer{ position:absolute; right:10px; bottom:10px; font-size:12.5px; font-weight:800; padding:5px 11px; border-radius:999px; background:var(--tinta); color:var(--papel); opacity:0; transform:translateY(4px); transition:opacity .25s, transform .25s var(--ease-out); }
+.pieza:hover .leer, .pieza > button:focus-visible .leer{ opacity:1; transform:none; }
+@media (hover:none){ .pieza .leer{ opacity:1; transform:none; } }
 .pieza figcaption{ padding-top:12px; }
 .pieza .tipo{ font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--gris); }
 .pieza h4{ margin:3px 0 0; font-size:19px; font-weight:900; letter-spacing:-.03em; line-height:1.12; }
 .pieza .autor{ margin:4px 0 0; font-size:14.5px; font-weight:700; }
 .pieza .premio{ margin:2px 0 0; font-size:13.5px; font-weight:700; color:var(--rojo); }
-@media (max-width:760px){ .muestras{ grid-template-columns:1fr 1fr; } }
-@media (max-width:480px){ .muestras, .muestras.dos{ grid-template-columns:1fr; } }
+.destacadas{ display:grid; grid-template-columns:1.35fr 1fr; grid-auto-rows:auto; gap:22px 24px; }
+.destacadas .grande{ grid-row:span 2; }
+.destacadas .grande .img{ aspect-ratio:4/3.4; }
+.destacadas .grande h4{ font-size:clamp(22px,2.8vw,28px); }
+.destacadas .pieza:not(.grande) > button{ display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+.destacadas .pieza:not(.grande) .img{ aspect-ratio:1/1; }
+.destacadas .pieza:not(.grande) figcaption{ padding-top:0; }
+.destacadas .pieza.extra{ grid-column:1 / -1; }
+.destacadas .pieza.extra > button{ grid-template-columns:200px 1fr; }
+.destacadas .pieza.extra .img{ aspect-ratio:16/10; }
+@media (max-width:720px){ .destacadas{ grid-template-columns:1fr; } .destacadas .grande{ grid-row:auto; } .destacadas .pieza.extra > button{ grid-template-columns:1fr 1fr; } }
 
-/* 04 · cómo funciona */
-.pasos{ list-style:none; margin:0; padding:0; counter-reset:p; }
-.paso{ position:relative; display:grid; grid-template-columns:56px 1fr; gap:20px; padding-bottom:30px; }
+.secciones-mini{ display:grid; grid-template-columns:repeat(3,1fr); gap:0 24px; margin:6px 0 0; padding:0; list-style:none; }
+.secciones-mini li{ display:grid; grid-template-columns:64px 1fr; gap:14px; align-items:center; padding:14px 0; border-top:1px solid var(--linea); min-width:0; }
+.secciones-mini .pj{ width:64px; height:56px; object-fit:contain; }
+.secciones-mini h3{ margin:0; font-size:17px; font-weight:900; letter-spacing:-.02em; line-height:1.1; }
+.secciones-mini p{ margin:3px 0 0; font-size:14px; line-height:1.35; color:var(--texto-2); }
+@media (max-width:760px){ .secciones-mini{ grid-template-columns:1fr 1fr; } }
+@media (max-width:460px){ .secciones-mini{ grid-template-columns:1fr; } }
+
+/* premios */
+.premios{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; margin:0; padding:0; list-style:none; }
+.premio-t{ position:relative; padding:20px 20px 18px; border:1.5px solid var(--tinta); border-radius:3px; background:var(--papel); min-width:0; }
+.premio-t .anio{ position:absolute; top:14px; right:16px; font-size:13px; font-weight:800; color:var(--rojo); font-variant-numeric:tabular-nums; }
+.premio-t b{ display:block; font-size:20px; font-weight:900; letter-spacing:-.03em; line-height:1.12; padding-right:44px; }
+.premio-t span{ display:block; margin-top:10px; font-size:14.5px; font-weight:700; color:var(--texto-2); }
+.premios-pj{ position:absolute; right:40px; top:-62px; width:96px; }
+@media (max-width:560px){ .premios-pj{ width:66px; right:18px; top:-44px; } }
+
+/* cómo funciona */
+.pasos{ list-style:none; margin:0; padding:0; }
+.paso{ position:relative; display:grid; grid-template-columns:56px 1fr 110px; gap:20px; padding-bottom:30px; }
 .paso:last-child{ padding-bottom:0; }
 .paso::after{ content:""; position:absolute; left:27px; top:56px; bottom:0; width:2px; background:repeating-linear-gradient(180deg,var(--tinta) 0 6px,transparent 6px 12px); }
 .paso:last-child::after{ display:none; }
 .paso .n{ width:56px; height:56px; border-radius:50%; display:grid; place-items:center; font-size:24px; font-weight:900; letter-spacing:-.03em; color:var(--papel); background:var(--azul); }
 .paso:nth-child(2) .n{ background:var(--rojo); } .paso:nth-child(3) .n{ background:var(--tinta); } .paso:nth-child(4) .n{ background:var(--lima); color:var(--tinta); }
 .paso h3{ margin:12px 0 0; font-size:22px; font-weight:900; letter-spacing:-.03em; line-height:1.1; }
-.paso p{ margin:6px 0 0; font-size:15.5px; color:rgba(13,17,20,.78); max-width:58ch; }
+.paso p{ margin:6px 0 0; font-size:15.5px; color:var(--texto-2); max-width:58ch; }
+.paso .pj{ width:100%; max-height:110px; object-fit:contain; object-position:center top; }
 .paso .opcional{ display:inline-block; margin-left:8px; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; padding:2px 8px; border-radius:999px; background:var(--papel-3); vertical-align:middle; }
+@media (max-width:640px){ .paso{ grid-template-columns:48px 1fr; gap:14px; } .paso .n{ width:48px; height:48px; font-size:20px; } .paso::after{ left:23px; top:48px; } .paso h3{ margin-right:64px; } .paso .pj{ position:absolute; right:0; top:0; width:56px; max-height:62px; } }
+/* revelado progresivo: solo con JS y si la persona no pidió menos movimiento */
+.js .paso.por-ver{ opacity:0; transform:translateY(18px); }
+.js .paso{ transition:opacity .6s var(--ease-out), transform .6s var(--ease-out); }
+.js .paso.por-ver .pj{ transform:translateX(12px) rotate(4deg); }
+.js .paso .pj{ transition:transform .8s var(--ease-out) .12s; }
 .caminos{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px; max-width:600px; }
 .camino{ padding:14px 16px; border:1.5px solid var(--tinta); border-radius:3px; min-width:0; }
 .camino b{ display:block; font-size:16px; font-weight:900; letter-spacing:-.02em; }
@@ -182,29 +233,28 @@ main{ position:relative; z-index:1; max-width:960px; margin:0 auto;
 .reporte{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; padding:0; list-style:none; }
 .reporte li{ font-size:13.5px; font-weight:700; padding:4px 11px; border-radius:999px; background:var(--papel-2); border:1px solid var(--linea); }
 
-/* 05 · cierre */
+/* respaldo */
+.respaldo{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px 40px; margin:34px 0 0; padding:20px 0; border-top:1px solid var(--linea); border-bottom:1px solid var(--linea); }
+.respaldo > span{ font-size:12.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--gris); }
+.respaldo ul{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px 36px; margin:0; padding:0; list-style:none; }
+.respaldo img{ display:block; height:42px; width:auto; max-width:240px; object-fit:contain; filter:grayscale(1) contrast(1.1); opacity:.7; transition:opacity .2s; }
+.respaldo a:hover img{ opacity:1; }
+.respaldo .falta{ display:inline-block; padding:7px 14px; border:1.5px dashed var(--gris); border-radius:3px; font-size:14px; font-weight:800; color:var(--gris); }
+.respaldo .falta small{ display:block; font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+
+/* cierre */
 .cierre{ background:var(--tinta); color:var(--papel); }
 .cierre .sheet-head{ border-color:rgba(250,246,241,.25); }
 .cierre .sheet-head b{ color:var(--lima); }
 .cierre .sheet-head span{ color:rgba(250,246,241,.7); }
 .cierre h2{ font-size:clamp(40px,7vw,74px); line-height:.94; letter-spacing:-.045em; max-width:12ch; }
-.cierre h2 em{ color:var(--lima); }
+.cierre h2 em{ color:var(--lima)!important; }
 .cierre .sub{ color:rgba(250,246,241,.8); font-size:18px; }
 .cierre-sign{ position:absolute; z-index:3; right:30px; bottom:100%; margin-bottom:-8px; width:96px; transform:rotate(6deg); transform-origin:50% 100%; pointer-events:none; }
 .cierre-sign .bicho{ animation:flota 4s ease-in-out infinite; }
-.sheet.cierre{ margin-top:110px; }
-@media (max-width:560px){ .sheet.cierre{ margin-top:80px; } .cierre-sign{ width:62px; right:14px; } }
-.contactos{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:6px 0 0; }
-.contacto{ padding:18px 20px; border:1.5px solid rgba(250,246,241,.3); border-radius:3px; min-width:0; }
-.contacto small{ display:block; font-size:13px; font-weight:700; color:rgba(250,246,241,.62); }
-.contacto b{ display:block; margin-top:2px; font-size:20px; font-weight:900; letter-spacing:-.03em; }
-.contacto .mail{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-top:12px; }
-.contacto .mail code{ font-family:var(--sans); font-size:16px; font-weight:700; color:var(--lima); user-select:all; overflow-wrap:anywhere; }
-.copiar{ appearance:none; border:1.5px solid rgba(250,246,241,.45); background:transparent; border-radius:999px; padding:5px 12px; font-size:13px; font-weight:800; cursor:pointer; color:var(--papel); transition:background-color .2s, color .2s; }
-.copiar:hover{ background:var(--papel); color:var(--tinta); }
-@media (max-width:640px){ .contactos{ grid-template-columns:1fr; } }
-.send{ display:flex; flex-wrap:wrap; align-items:center; gap:14px 20px; margin-top:26px; padding-top:24px; border-top:1px solid rgba(250,246,241,.18); }
-.send .fine{ font-size:14px; color:rgba(250,246,241,.65); max-width:44ch; }
+.cierre .agendar{ font-size:19px; padding:18px 34px; }
+.cierre .fine{ margin:24px 0 0; padding-top:20px; border-top:1px solid rgba(250,246,241,.18); font-size:14px; color:rgba(250,246,241,.65); }
+.cierre :focus-visible{ outline-color:var(--lima); }
 
 .btn{
   appearance:none; border:0; border-radius:999px; cursor:pointer; display:inline-flex; align-items:center; gap:10px;
@@ -213,12 +263,13 @@ main{ position:relative; z-index:1; max-width:960px; margin:0 auto;
 }
 .btn:hover{ transform:translateY(-2px); }
 .btn:active{ transform:translateY(1px); }
+.btn--azul{ background:var(--azul); color:var(--papel); }
 .btn--lima{ background:var(--lima); color:var(--tinta); }
-.btn--red{ background:var(--rojo); color:var(--papel); }
-.btn--ghost{ background:transparent; color:var(--papel); border:1.5px solid rgba(250,246,241,.55); padding:13.5px 24px; }
+.btn--ghost{ background:transparent; color:var(--tinta); box-shadow:inset 0 0 0 1.5px var(--tinta); padding:15px 26px; }
+.btn--ghost:hover{ background:var(--tinta); color:var(--papel); }
 .btn svg{ width:18px; height:18px; }
 
-/* muñecos: cuerpo + brazos y piernas sueltos que giran sobre su articulación */
+/* muñecos animados: cuerpo + brazos y piernas sueltos que giran sobre su articulación */
 .bicho{ display:block; position:relative; width:100%; }
 .bicho img{ position:absolute; inset:0; width:100%; height:100%; }
 .bicho .c{ animation:bob calc(var(--t) / 2) var(--d,0s) ease-in-out infinite alternate; }
@@ -228,70 +279,91 @@ main{ position:relative; z-index:1; max-width:960px; margin:0 auto;
 @keyframes paso{ from{ transform:rotate(calc(var(--a) * -1)); } to{ transform:rotate(var(--a)); } }
 @keyframes bob{ from{ transform:translateY(0); } to{ transform:translateY(-2.5%); } }
 
-footer{ color:rgba(250,246,241,.65); font-size:13.5px; display:flex; flex-wrap:wrap; gap:8px 24px; justify-content:space-between; }
-footer a{ color:var(--papel); }
+footer{ color:var(--gris); font-size:13.5px; display:flex; flex-wrap:wrap; gap:14px 24px; align-items:center; justify-content:space-between; }
+footer a{ color:var(--tinta); }
+.redes{ display:flex; gap:10px; flex-wrap:wrap; }
+.red{ display:inline-flex; align-items:center; gap:8px; padding:9px 16px 9px 12px; border-radius:999px; background:var(--tinta); color:var(--papel)!important; text-decoration:none; font-weight:800; font-size:14px; transition:background-color .2s, transform .18s var(--ease-out); }
+.red:hover{ background:var(--azul); transform:translateY(-1px); }
+.red svg{ width:18px; height:18px; flex:none; }
 
-/* ---------------- PASOS (una sección a la vez) ---------------- */
+/* ---------------- PRESENTACIÓN (una sección a la vez) ---------------- */
 .indice{ display:flex; gap:6px; margin:22px 0 0; padding:0 0 4px; list-style:none; overflow-x:auto; scrollbar-width:none; }
 .indice::-webkit-scrollbar{ display:none; }
 .indice a{ display:block; white-space:nowrap; text-decoration:none; font-size:13.5px; font-weight:800; padding:7px 13px; border-radius:999px;
-  color:var(--papel); border:1.5px solid rgba(250,246,241,.3); transition:background-color .2s, color .2s, border-color .2s; }
-.indice a:hover{ border-color:var(--papel); }
-.indice a[aria-current="step"]{ background:var(--papel); color:var(--tinta); border-color:var(--papel); }
+  color:var(--tinta); border:1.5px solid var(--linea); transition:background-color .2s, color .2s, border-color .2s; }
+.indice a:hover{ border-color:var(--tinta); }
+.indice a[aria-current="step"]{ background:var(--tinta); color:var(--papel); border-color:var(--tinta); }
 .indice a small{ font-size:inherit; color:var(--rojo); margin-right:6px; font-variant-numeric:tabular-nums; }
-.indice a[aria-current="step"] small{ color:var(--rojo); }
+.indice a[aria-current="step"] small{ color:var(--lima); }
 .js .slide:not(.on){ display:none; }
 .js .slide.on{ animation:entra .45s var(--ease-out); }
+.js .slide.on.atras{ animation-name:entra-atras; }
 @keyframes entra{ from{ opacity:.4; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+@keyframes entra-atras{ from{ opacity:.4; transform:translateY(-14px); } to{ opacity:1; transform:none; } }
 .slide.sheet{ margin-top:30px; }
-.slide.sheet.cierre{ margin-top:120px; }
-@media (max-width:560px){ .slide.sheet.cierre{ margin-top:90px; } }
-main{ padding-bottom:calc(120px + env(safe-area-inset-bottom, 0px)); }
+.slide.sheet.premios-hoja{ margin-top:90px; }
+.ultima{ margin-top:30px; }
+.ultima .sheet.cierre{ margin-top:110px; }
+@media (max-width:560px){ .ultima .sheet.cierre{ margin-top:84px; } .slide.sheet.premios-hoja{ margin-top:64px; } }
+main{ padding-bottom:calc(110px + env(safe-area-inset-bottom, 0px)); }
 
-.barra{ position:fixed; z-index:20; left:0; right:0; bottom:0;
-  padding-bottom:calc(14px + env(safe-area-inset-bottom, 0px)); padding-top:14px;
-  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px));
-  background:linear-gradient(180deg, transparent, rgba(4,30,60,.55) 40%); pointer-events:none; }
-.barra-in{ pointer-events:auto; max-width:920px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px;
-  background:var(--tinta); color:var(--papel); border-radius:999px; padding:8px; box-shadow:0 18px 40px -16px rgba(0,0,0,.6); }
-.nav-btn{ appearance:none; border:0; cursor:pointer; display:inline-flex; align-items:center; gap:8px; border-radius:999px;
-  font-weight:800; font-size:15.5px; padding:12px 18px; transition:transform .18s var(--ease-out), background-color .2s, opacity .2s; min-width:0; }
-.nav-btn svg{ width:18px; height:18px; flex:none; }
-.nav-btn.atras{ background:transparent; color:var(--papel); }
-.nav-btn.atras:hover{ background:rgba(250,246,241,.12); }
-.nav-btn.atras:disabled{ opacity:.3; cursor:default; background:transparent; }
-.nav-btn.sig{ background:var(--lima); color:var(--tinta); }
-.nav-btn.sig span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.nav-btn.sig:hover{ transform:translateX(2px); }
-.puntos{ display:flex; gap:7px; margin:0; padding:0; list-style:none; }
-.puntos button{ appearance:none; border:0; padding:0; width:9px; height:9px; border-radius:50%; background:rgba(250,246,241,.3); cursor:pointer; transition:width .3s var(--ease-out), background-color .2s; }
-.puntos button[aria-current="step"]{ width:26px; border-radius:999px; background:var(--lima); }
-@media (max-width:560px){ .nav-btn.atras span, .nav-btn.sig .nom{ display:none; } .nav-btn{ padding:12px 15px; font-size:15px; } .puntos{ gap:5px; } }
-@media (max-width:380px){ .puntos{ display:none; } }
+/* riel fijo a la derecha: anterior, progreso y siguiente */
+.riel{ position:fixed; z-index:30; right:max(20px, env(safe-area-inset-right, 0px)); top:50%; transform:translateY(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:10px; }
+.riel-btn{ appearance:none; border:0; cursor:pointer; width:56px; height:56px; border-radius:50%; display:grid; place-items:center;
+  background:var(--tinta); color:var(--papel); box-shadow:0 12px 26px -12px rgba(13,17,20,.6); transition:transform .18s var(--ease-out), background-color .2s, opacity .2s; }
+.riel-btn svg{ width:24px; height:24px; }
+.riel-btn:hover:not(:disabled){ transform:scale(1.07); }
+.riel-btn.sig{ background:var(--azul); }
+.riel-btn:disabled{ opacity:.28; cursor:default; box-shadow:none; }
+.riel-btn.sig.llama{ animation:llama 1.8s ease-in-out 1.2s 3; }
+@keyframes llama{ 0%,100%{ transform:none; } 40%{ transform:translateY(6px); } 60%{ transform:translateY(-2px); } }
+.contador{ font-size:13px; font-weight:900; letter-spacing:.02em; font-variant-numeric:tabular-nums; padding:4px 9px; border-radius:999px; background:var(--papel); border:1.5px solid var(--tinta); white-space:nowrap; }
+.puntos{ display:flex; flex-direction:column; align-items:center; gap:2px; margin:0; padding:0; list-style:none; }
+.puntos button{ appearance:none; border:0; background:transparent; padding:5px; cursor:pointer; display:grid; place-items:center; position:relative; }
+.puntos button i{ display:block; width:10px; height:10px; border-radius:50%; background:transparent; box-shadow:inset 0 0 0 2px var(--tinta); transition:height .3s var(--ease-out), background-color .2s; }
+.puntos button[aria-current="step"] i{ height:24px; border-radius:999px; background:var(--tinta); }
+.puntos button:hover i{ background:var(--tinta); }
+.puntos button .nombre{ position:absolute; right:calc(100% + 8px); top:50%; transform:translate(6px,-50%); white-space:nowrap; font-size:13px; font-weight:800; padding:4px 10px; border-radius:999px; background:var(--tinta); color:var(--papel); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s var(--ease-out); }
+.puntos button:hover .nombre, .puntos button:focus-visible .nombre{ opacity:1; transform:translate(0,-50%); }
+@media (max-width:760px){
+  .riel{ top:auto; transform:none; bottom:calc(14px + env(safe-area-inset-bottom, 0px)); right:max(14px, env(safe-area-inset-right, 0px));
+    flex-direction:row; gap:8px; padding:6px; border-radius:999px; background:rgba(250,246,241,.92); border:1.5px solid var(--tinta); box-shadow:0 14px 30px -14px rgba(13,17,20,.5);
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+  .riel-btn{ width:48px; height:48px; box-shadow:none; }
+  .puntos{ display:none; }
+  .contador{ border:0; background:transparent; padding:0 4px; font-size:14px; }
+}
 
-/* destacadas */
-.destacadas{ display:grid; grid-template-columns:1.35fr 1fr; grid-template-rows:auto auto; gap:22px 24px; }
-.destacadas .grande{ grid-row:span 2; }
-.destacadas .grande .img{ aspect-ratio:4/3.4; }
-.destacadas .grande h4{ font-size:clamp(22px,2.8vw,28px); }
-.destacadas .pieza:not(.grande){ display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
-.destacadas .pieza:not(.grande) .img{ aspect-ratio:1/1; }
-.destacadas .pieza:not(.grande) figcaption{ padding-top:0; }
-.destacadas .pieza:not(.grande) .img.sin b{ font-size:19px; }
-@media (max-width:720px){ .destacadas{ grid-template-columns:1fr; } .destacadas .grande{ grid-row:auto; } }
-.secciones-mini{ display:grid; grid-template-columns:repeat(3,1fr); gap:0 24px; margin:6px 0 0; padding:0; list-style:none; }
-.secciones-mini li{ display:grid; grid-template-columns:44px 1fr; gap:12px; align-items:center; padding:14px 0; border-top:1px solid var(--linea); min-width:0; }
-.secciones-mini .glyph{ width:44px; height:44px; font-size:15px; }
-.secciones-mini h3{ margin:0; font-size:17px; font-weight:900; letter-spacing:-.02em; line-height:1.1; }
-.secciones-mini p{ margin:3px 0 0; font-size:14px; line-height:1.35; color:rgba(13,17,20,.72); }
-@media (max-width:760px){ .secciones-mini{ grid-template-columns:1fr 1fr; } }
-@media (max-width:460px){ .secciones-mini{ grid-template-columns:1fr; } }
+/* ---------------- LEER AQUÍ (F1) ---------------- */
+dialog.panel-lectura{ margin:0 0 0 auto; padding:0; border:0; height:100%; max-height:100%; width:min(640px,100%); max-width:100%;
+  background:var(--papel); color:var(--tinta); border-left:1.5px solid var(--tinta); box-shadow:-30px 0 60px -30px rgba(13,17,20,.5); }
+dialog.panel-lectura[open]{ display:flex; flex-direction:column; animation:desliza .4s var(--ease-out); }
+dialog.panel-lectura::backdrop{ background:rgba(13,17,20,.45); }
+@keyframes desliza{ from{ transform:translateX(40px); opacity:.3; } to{ transform:none; opacity:1; } }
+.pl-barra{ display:flex; align-items:center; gap:12px; padding:12px 14px 12px 22px; border-bottom:1.5px solid var(--tinta); background:var(--papel); }
+.pl-barra small{ flex:1; min-width:0; font-size:12.5px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; color:var(--gris); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pl-cerrar{ appearance:none; border:0; cursor:pointer; display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:999px; background:var(--tinta); color:var(--papel); font-weight:800; font-size:14.5px; }
+.pl-cerrar svg{ width:16px; height:16px; }
+.pl-cuerpo{ flex:1; overflow-y:auto; overscroll-behavior:contain; }
+.pl-cuerpo iframe{ display:block; width:100%; height:100%; border:0; background:#fff; }
+.pl-ficha{ padding:0 0 36px; }
+.pl-ficha .img{ aspect-ratio:16/9; background:var(--papel-3); border-bottom:1.5px solid var(--tinta); }
+.pl-ficha .img img{ width:100%; height:100%; object-fit:cover; display:block; }
+.pl-ficha .img.sin{ display:grid; place-items:center; color:var(--gris); font-size:13px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+.pl-txt{ padding:26px 28px 0; }
+.pl-txt .tipo{ font-size:12.5px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--rojo); }
+.pl-txt h2{ margin:6px 0 0; font-size:clamp(28px,4.4vw,40px); line-height:1; font-weight:900; letter-spacing:-.04em; }
+.pl-txt .autor{ margin:10px 0 0; font-size:16px; font-weight:800; }
+.pl-txt .premio{ margin:2px 0 0; font-size:14px; font-weight:700; color:var(--rojo); }
+.pl-txt .btn{ margin-top:26px; }
+@media (max-width:560px){ .pl-txt{ padding:22px 18px 0; } }
 
-/* agenda */
-.cierre .agendar{ font-size:19px; padding:18px 34px; }
-.cierre .fine{ margin:24px 0 0; padding-top:20px; border-top:1px solid rgba(250,246,241,.18); font-size:14px; color:rgba(250,246,241,.65); }
-
-@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } *{ transition:none!important; animation:none!important; } }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ transition:none!important; animation:none!important; }
+  .js .paso.por-ver, .js .paso.por-ver .pj{ opacity:1; transform:none; }
+}
 </style>
 </head>
 <body>
@@ -302,31 +374,44 @@ main{ padding-bottom:calc(120px + env(safe-area-inset-bottom, 0px)); }
   </header>
   <ol class="indice" id="indice" aria-label="Secciones"></ol>
 
+  <!-- PORTADA -->
   <section class="slide portada" id="inicio" data-nombre="Inicio" aria-label="Portada">
-  <div class="hero">
-    <div class="hero-sign" aria-hidden="true"><span class="bicho" data-b="exclamacion"></span></div>
-    <span class="kicker" id="kicker">Para universidades · Piloto gratuito de un año</span>
-    <h1>Llevemos la mejor literatura en español a <em id="uni">tu universidad</em>.</h1>
-    <p class="hola">¡Queremos colaborar!</p>
-    <p class="lead">Los alumnos no han dejado de leer: leen más que nunca, pero en línea y en espacios donde predomina el inglés. Perpetuo publica periodismo narrativo, ensayo, escritura creativa y pódcast en español, tres veces por semana. Te proponemos un año de acceso gratuito para tu comunidad.</p>
-    <div class="acts">
-      <a class="btn btn--lima" href="#piloto">Ver la propuesta
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 12l6 6 6-6"/></svg></a>
-      <a class="btn btn--ghost" href="#hablemos">Agendemos una reunión</a>
+    <div class="hero">
+      <div class="hero-sign" aria-hidden="true"><span class="bicho" data-b="exclamacion"></span></div>
+      <h1>La mejor literatura, en <em id="uni">tu universidad</em>.</h1>
+      <p class="hola">¡Queremos colaborar!</p>
+      <p class="lead">Los alumnos sí leen; pasa que ahora leen en línea y en espacios donde predomina el inglés. Perpetuo publica periodismo narrativo, literatura y pódcasts en español: textos nuevos tres veces por semana<span id="frecPodcasts"></span>. Te proponemos un año de acceso gratuito para tu comunidad.</p>
+      <div class="acts">
+        <a class="btn btn--azul" href="#quien">Ver la propuesta
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 12l6 6 6-6"/></svg></a>
+        <a class="btn btn--ghost" href="#hablemos">Agendemos una reunión</a>
+      </div>
     </div>
-  </div>
-
-  <ul class="cifras" aria-label="Perpetuo en cifras">
-    <li><b>+500</b><span>textos publicados</span></li>
-    <li><b>~50,000</b><span>lectores al mes</span></li>
-    <li><b>6,000</b><span>suscriptores al newsletter</span></li>
-    <li><b>79</b><span>países, los 21 de habla hispana</span></li>
-  </ul>
+    <ul class="cifras cargando" id="cifras" aria-label="Perpetuo en cifras" aria-busy="true">
+      <li><b></b><span>&nbsp;</span></li><li><b></b><span>&nbsp;</span></li><li><b></b><span>&nbsp;</span></li><li><b></b><span>&nbsp;</span></li>
+    </ul>
   </section>
 
-  <!-- 01 · EL PILOTO -->
+  <!-- 01 · QUIÉN NOS LEE -->
+  <section class="sheet slide" id="quien" data-nombre="Quién nos lee" aria-labelledby="hQuien">
+    <div class="sheet-head"><b>01</b><span>¿Quién nos lee hoy?</span></div>
+    <div class="sheet-body">
+      <div class="lector">
+        <img id="fotoLector" src="assets/img/lector.webp" alt="El personaje de Perpetuo leyendo un libro rojo" width="400" height="400">
+        <div>
+          <h2 id="hQuien">Un lector joven, bicultural y profundamente <em>literario</em>.</h2>
+          <p class="sub">Es probable que tu comunidad ya esté leyendo Perpetuo. Así es quien nos lee hoy:</p>
+          <ul class="rasgos">
+            <li>Menor de 35 años</li><li>Con maestría</li><li>Habla español e inglés</li><li>Lee The New Yorker, The Atlantic y El País</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · EL PILOTO -->
   <section class="sheet slide" id="piloto" data-nombre="La propuesta" aria-labelledby="hPiloto">
-    <div class="sheet-head"><b>01</b><span>La propuesta</span></div>
+    <div class="sheet-head"><b>02</b><span>La propuesta</span></div>
     <div class="sheet-body">
       <h2 id="hPiloto">Un año de Perpetuo, <em>gratis</em>, para tu comunidad.</h2>
       <p class="sub">Un piloto masivo: abrimos Perpetuo completo a los alumnos y docentes que tu universidad elija, durante doce meses.</p>
@@ -351,77 +436,70 @@ main{ padding-bottom:calc(120px + env(safe-area-inset-bottom, 0px)); }
       <div class="sello"><b>Sin costo.</b><span>La universidad solo nos dice a quién activar. Nosotros nos encargamos del resto y les reportamos cómo va.</span></div>
     </div>
   </section>
-  <!-- QUÉ VAN A LEER -->
+
+  <!-- 03 · QUÉ VAN A LEER -->
   <section class="sheet slide" id="contenido" data-nombre="Qué van a leer" aria-labelledby="hContenido">
-    <div class="sheet-head"><b>02</b><span>Qué van a leer</span></div>
+    <div class="sheet-head"><b>03</b><span>Qué van a leer</span></div>
     <div class="sheet-body">
       <h2 id="hContenido">Las historias que nadie más está <em>contando</em>.</h2>
-      <p class="sub">Crónicas de largo aliento escritas por autores premiados. Así se ve lo que publicamos.</p>
-      <div class="destacadas">
-        <figure class="pieza grande">
-          <div class="img"><img src="assets/img/violencia.webp" alt="Ilustración estilo cerámica griega con músicos de corridos"></div>
-          <figcaption><span class="tipo">Crónica</span><h4>Dos formas de narrar la violencia</h4><p class="autor">Dahlia de la Cerda</p><p class="premio">Longlist del International Booker Prize</p></figcaption>
-        </figure>
-        <figure class="pieza">
-          <div class="img sin"><b>Haití, la revuelta eterna</b></div>
-          <figcaption><span class="tipo">Crónica</span><h4>Haití, la revuelta eterna</h4><p class="autor">Juan Martínez d'Aubuisson</p><p class="premio">Premio Ortega y Gasset 2024 · Premio Gabo 2025</p></figcaption>
-        </figure>
-        <figure class="pieza">
-          <div class="img"><img src="assets/img/sobreviviente.webp" alt="Diagrama de trayectorias de aviones"></div>
-          <figcaption><span class="tipo">Crónica</span><h4>El sobreviviente contrafáctico</h4><p class="autor">Javier Sinay</p><p class="premio">Premio Gabo 2015</p></figcaption>
-        </figure>
-      </div>
+      <p class="sub">Crónicas de largo aliento escritas por autores premiados. Toca cualquiera para leerla aquí mismo.</p>
+      <div class="destacadas" id="destacadas" aria-busy="true"></div>
 
-      <h3 class="mini">Todo lo que trae la revista · tres veces por semana</h3>
+      <h3 class="mini">Todo lo que trae la revista</h3>
       <ul class="secciones-mini">
-        <li><span class="glyph g-lima" aria-hidden="true">ES</span><div><h3>Estelares</h3><p>Crónica de largo aliento.</p></div></li>
-        <li><span class="glyph g-azul" aria-hidden="true">AN</span><div><h3>Los anteojos</h3><p>Ensayo y análisis de coyuntura.</p></div></li>
-        <li><span class="glyph g-rojo" aria-hidden="true">CR</span><div><h3>El creativo</h3><p>Semanario de literatura: relatos y poemas.</p></div></li>
-        <li><span class="glyph g-tinta" aria-hidden="true">MC</span><div><h3>Masa Crítica</h3><p>Pódcast con Juan Villoro, Leo Zuckermann y más.</p></div></li>
-        <li><span class="glyph g-papel" aria-hidden="true">RE</span><div><h3>Recomendaciones</h3><p>Libros, cine y cartelera cada mes.</p></div></li>
-        <li><span class="glyph g-rojo" aria-hidden="true">+500</span><div><h3>Archivo completo</h3><p>Todo lo publicado, abierto durante el piloto.</p></div></li>
+        <li><img class="pj" src="assets/personajes/mirando-estrella.webp" alt="" width="346" height="177"><div><h3>Estelares</h3><p>Crónica de largo aliento.</p></div></li>
+        <li><img class="pj" src="assets/personajes/anteojos.webp" alt="" width="238" height="236"><div><h3>Los anteojos</h3><p>Ensayo y análisis de coyuntura.</p></div></li>
+        <li><img class="pj" src="assets/personajes/lapiz.webp" alt="" width="201" height="268"><div><h3>El creativo</h3><p>Semanario de literatura: relatos y poemas.</p></div></li>
+        <li><img class="pj" src="assets/personajes/emocionado.webp" alt="" width="277" height="255"><div><h3>Masa Crítica</h3><p>Pódcast con Juan Villoro, Leo Zuckermann y más.</p></div></li>
+        <li><img class="pj" src="assets/personajes/libros.webp" alt="" width="239" height="225"><div><h3>Recomendaciones</h3><p>Libros, cine y cartelera cada mes.</p></div></li>
+        <li><img class="pj" src="assets/personajes/leyendo-acostado.webp" alt="" width="347" height="206"><div><h3>Archivo completo</h3><p>Todo lo publicado, abierto durante el piloto.</p></div></li>
       </ul>
     </div>
   </section>
-  <!-- 02 · POR QUÉ -->
+
+  <!-- 04 · POR QUÉ -->
   <section class="sheet slide" id="por-que" data-nombre="Por qué Perpetuo" aria-labelledby="hPorQue">
-    <div class="sheet-head"><b>03</b><span>Por qué Perpetuo</span></div>
+    <div class="sheet-head"><b>04</b><span>Por qué Perpetuo</span></div>
     <div class="sheet-body">
       <h2 id="hPorQue">¡Es hora de que el español se atreva <em>a más</em>!</h2>
-      <p class="sub">Para formar lectores críticos en español hace falta periodismo y cultura de calidad en nuestro idioma, y encontrar a los lectores donde ya están: en el mundo digital.</p>
+      <p class="sub">Para formar lectores críticos hace falta periodismo y cultura de calidad en nuestro idioma.</p>
       <ul class="razones">
-        <li><h3>Hablamos desde el español</h3><p>Cubrimos lo global desde una perspectiva hispana. Material directo para comunicación, ciencias sociales y humanidades.</p></li>
-        <li><h3>Una puerta de entrada para sus alumnos</h3><p>Perpetuo publica voces nuevas. Para muchos estudiantes puede ser su primera publicación remunerada.</p></li>
-        <li><h3>Las mejores historias, con los mejores autores</h3><p>Reportamos las historias en español que nadie está contando, con autores premiados.</p></li>
-        <li><h3>Eventos y oportunidades</h3><p>Perpetuo es una comunidad cultural: organizamos encuentros y actividades para nuestros lectores.</p></li>
-        <li><h3>Un archivo que se puede usar en clase</h3><p>Más de 500 textos, con acceso completo durante todo el piloto.</p></li>
-        <li><h3>Hecho para leerse en pantalla</h3><p>Llega al correo y se lee en el teléfono, donde los alumnos ya leen todos los días.</p></li>
+        <li><img class="pj" src="assets/personajes/caminando.webp" alt="" width="234" height="208"><h3>Hablamos desde el español</h3><p>Cubrimos lo global desde una perspectiva hispana. Material directo para comunicación, ciencias sociales y humanidades.</p></li>
+        <li><img class="pj" src="assets/personajes/estrella.webp" alt="" width="262" height="252"><h3>Una puerta de entrada para sus alumnos</h3><p>Perpetuo publica voces nuevas. Para muchos estudiantes puede ser su primera publicación remunerada.</p></li>
+        <li><img class="pj" src="assets/personajes/leyendo.webp" alt="" width="207" height="204"><h3>Las mejores historias, con los mejores autores</h3><p>Reportamos las historias en español que nadie está contando, con autores premiados.</p></li>
+        <li><img class="pj" src="assets/personajes/emocionado.webp" alt="" width="277" height="255"><h3>Eventos y oportunidades</h3><p>Perpetuo es una comunidad cultural: organizamos encuentros y actividades para nuestros lectores.</p></li>
+        <li><img class="pj" src="assets/personajes/libros.webp" alt="" width="239" height="225"><h3>Un archivo que se puede usar en clase</h3><p>Más de <span data-metrica-num="textos">700</span> textos, con acceso completo durante todo el piloto.</p></li>
+        <li><img class="pj" src="assets/personajes/leyendo-acostado.webp" alt="" width="347" height="206"><h3>Hecho para leerse en pantalla</h3><p>Llega al correo y se lee en el teléfono, donde los alumnos ya leen todos los días.</p></li>
       </ul>
 
-      <div class="lector">
-        <img src="assets/img/lector.webp" alt="El personaje de Perpetuo leyendo un libro rojo" width="400" height="400">
-        <div>
-          <span class="tag">Quién nos lee hoy</span>
-          <h3>Un lector joven, bicultural y profundamente literario.</h3>
-          <ul class="rasgos">
-            <li>Menor de 35 años</li><li>Con maestría</li><li>Habla español e inglés</li><li>Lee The New Yorker, The Atlantic y El País</li>
-          </ul>
-        </div>
-      </div>
-
       <h3 class="mini">Perpetuo nace digital</h3>
-      <ol class="linea-t" aria-label="Revistas de referencia en español por año de fundación">
-        <li><b>1976</b>El País, Proceso</li>
-        <li><b>1978</b>Nexos</li>
-        <li><b>1999</b>Letras Libres, Gatopardo</li>
-        <li class="yo"><b>2025</b>Perpetuo</li>
-      </ol>
+      <div class="linea-scroll" id="lineaScroll" tabindex="0" aria-label="Línea del tiempo a escala; se puede desplazar hacia los lados">
+        <ol class="linea-t" id="lineaT" aria-label="Revistas de referencia en español por año de fundación">
+          <li class="hito" data-anio="1976"><span class="txt"><b>1976</b>El País, Proceso</span></li>
+          <li class="hito" data-anio="1978"><span class="txt"><b>1978</b>Nexos</span></li>
+          <li class="hito" data-anio="1999"><span class="txt"><b>1999</b>Letras Libres, Gatopardo</span></li>
+          <li class="hito yo" data-anio="2025"><span class="txt"><b>2025</b>Perpetuo</span></li>
+        </ol>
+      </div>
+      <p class="linea-ayuda" aria-hidden="true">Desliza la línea hacia los lados →</p>
       <p class="nota">Las grandes publicaciones en español nacieron en papel. Perpetuo nace digital: pensada desde el primer día para leerse en internet. Respaldada por OSV y Emergent Ventures.</p>
     </div>
   </section>
-  <!-- 04 · CÓMO FUNCIONA -->
+
+  <!-- 05 · PREMIOS -->
+  <section class="sheet slide premios-hoja" id="premios" data-nombre="Premios" aria-labelledby="hPremios">
+    <img class="pj premios-pj" src="assets/personajes/estrella.webp" alt="" width="262" height="252">
+    <div class="sheet-head"><b>05</b><span>Nuestros autores</span></div>
+    <div class="sheet-body">
+      <h2 id="hPremios">Publicamos a autores <em>premiados</em>.</h2>
+      <p class="sub">Algunos de los reconocimientos que han recibido quienes escriben en Perpetuo.</p>
+      <ul class="premios" id="listaPremios" aria-busy="true"></ul>
+    </div>
+  </section>
+
+  <!-- 06 · CÓMO FUNCIONA -->
   <section class="sheet slide" id="como-funciona" data-nombre="Cómo funciona" aria-labelledby="hComo">
-    <div class="sheet-head"><b>04</b><span>Cómo funciona</span></div>
+    <div class="sheet-head"><b>06</b><span>Cómo funciona</span></div>
     <div class="sheet-body">
       <h2 id="hComo">Cuatro pasos y tu comunidad <em>ya está leyendo</em>.</h2>
       <p class="sub">El trabajo operativo corre por nuestra cuenta. A la universidad le pedimos solo el primer paso.</p>
@@ -436,10 +514,12 @@ main{ padding-bottom:calc(120px + env(safe-area-inset-bottom, 0px)); }
               <div class="camino"><b><span class="o">o</span> Un enlace abierto</b><span>Les mandamos un link de acceso para que cualquiera de la comunidad se registre.</span></div>
             </div>
           </div>
+          <img class="pj" src="assets/personajes/pregunta.webp" alt="" width="199" height="256">
         </li>
         <li class="paso">
           <span class="n" aria-hidden="true">2</span>
           <div><h3>Los damos de alta en Perpetuo</h3><p>Activamos su acceso completo en la plataforma. Empiezan a recibir Perpetuo en su correo y pueden leer todo el archivo.</p></div>
+          <img class="pj" src="assets/personajes/patineta.webp" alt="" width="279" height="245">
         </li>
         <li class="paso">
           <span class="n" aria-hidden="true">3</span>
@@ -448,43 +528,64 @@ main{ padding-bottom:calc(120px + env(safe-area-inset-bottom, 0px)); }
             <p>Monitoreamos la activación y el uso, y entregamos un reporte a la universidad.</p>
             <ul class="reporte" aria-label="Qué incluye el reporte"><li>Activación de accesos</li><li>Uso y lectura</li></ul>
           </div>
+          <img class="pj" src="assets/personajes/anteojos.webp" alt="" width="238" height="236">
         </li>
         <li class="paso">
           <span class="n" aria-hidden="true">4</span>
           <div><h3>Plática o taller <span class="opcional">Si les interesa</span></h3><p>Organizamos con ustedes una plática o un taller de escritura para la comunidad.</p></div>
+          <img class="pj" src="assets/personajes/lapiz.webp" alt="" width="201" height="268">
         </li>
       </ol>
     </div>
   </section>
-  <!-- AGENDEMOS -->
-  <section class="sheet cierre slide" id="hablemos" data-nombre="Agendemos" aria-labelledby="hHablemos">
-    <div class="sheet-head"><b>05</b><span>Siguiente paso</span></div>
-    <div class="cierre-sign" aria-hidden="true"><span class="bicho" data-b="interrogacion"></span></div>
-    <div class="sheet-body">
-      <h2 id="hHablemos">Agendemos <em>una reunión</em>.</h2>
-      <p class="sub">En una llamada definimos a quién activamos y cuándo arrancamos. Escoge el horario que te acomode: son 30 minutos.</p>
-      <a class="btn btn--lima agendar" id="agendar" href="https://app.apollo.io/#/meet/Tomas/30-min" target="_blank" rel="noopener">Agendar llamada
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></a>
-      <p class="fine">Mientras tanto, puedes leer Perpetuo en <a href="https://perpetuo.global" target="_blank" rel="noopener">perpetuo.global</a>.</p>
+
+  <!-- 07 · AGENDEMOS (con la franja de respaldo justo antes del CTA) -->
+  <section class="slide ultima" id="hablemos" data-nombre="Agendemos" aria-labelledby="hHablemos">
+    <div class="respaldo" id="respaldo" aria-label="Con el respaldo de">
+      <span>Con el respaldo de</span><ul id="listaLogos"></ul>
+    </div>
+    <div class="sheet cierre">
+      <div class="sheet-head"><b>07</b><span>Siguiente paso</span></div>
+      <div class="cierre-sign" aria-hidden="true"><span class="bicho" data-b="interrogacion"></span></div>
+      <div class="sheet-body">
+        <h2 id="hHablemos">Agendemos <em>una reunión</em>.</h2>
+        <p class="sub">En una llamada definimos a quién activamos y cuándo arrancamos. Escoge el horario que te acomode.</p>
+        <a class="btn btn--lima agendar" id="agendar" href="https://app.apollo.io/#/meet/Tomas/30-min" target="_blank" rel="noopener">Agendar llamada
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></a>
+        <p class="fine">Mientras tanto, puedes leer Perpetuo en <a href="https://perpetuo.global" target="_blank" rel="noopener">perpetuo.global</a>.</p>
+      </div>
     </div>
   </section>
 
-  <nav class="barra" aria-label="Navegación entre secciones">
-    <div class="barra-in">
-      <button class="nav-btn atras" id="atras" type="button" aria-label="Sección anterior">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span>Anterior</span></button>
-      <ol class="puntos" id="puntos"></ol>
-      <button class="nav-btn sig" id="sig" type="button"><span id="sigTxt">Siguiente</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-    </div>
+  <nav class="riel" aria-label="Navegación de la presentación">
+    <button class="riel-btn ant" id="atras" type="button" aria-label="Sección anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+    <ol class="puntos" id="puntos"></ol>
+    <span class="contador" id="contador" aria-live="polite"></span>
+    <button class="riel-btn sig" id="sig" type="button" aria-label="Siguiente sección">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></button>
   </nav>
 
   <footer>
     <span>© Perpetuo · <a href="https://perpetuo.global" target="_blank" rel="noopener">perpetuo.global</a></span>
-    <span>Instagram y Facebook: @esperpetuo</span>
+    <span class="redes">
+      <a class="red" href="https://instagram.com/esperpetuo" target="_blank" rel="noopener" aria-label="Perpetuo en Instagram (se abre en otra pestaña)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>Instagram</a>
+      <a class="red" href="https://facebook.com/esperpetuo" target="_blank" rel="noopener" aria-label="Perpetuo en Facebook (se abre en otra pestaña)">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H8v3h2.5V21z"/></svg>Facebook</a>
+    </span>
   </footer>
 </main>
 
+<dialog class="panel-lectura" id="panelLectura" aria-labelledby="plTitulo">
+  <div class="pl-barra">
+    <small id="plSeccion">Perpetuo</small>
+    <button class="pl-cerrar" type="button" id="plCerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Cerrar</button>
+  </div>
+  <div class="pl-cuerpo" id="plCuerpo"></div>
+</dialog>
+
+<script src="assets/comun.js"></script>
 <script>
 /* Personalización: ?u=UNAM cambia el saludo de la portada. */
 (() => {
@@ -492,33 +593,166 @@ main{ padding-bottom:calc(120px + env(safe-area-inset-bottom, 0px)); }
   try { u = (new URLSearchParams(location.search).get("u") || "").trim().slice(0, 60); } catch (e) {}
   if (!u) return;
   document.getElementById("uni").textContent = u;
-  document.getElementById("kicker").textContent = "Propuesta para " + u + " · Piloto gratuito de un año";
   document.title = "Perpetuo para " + u;
 })();
 
-/* ---------------- pasos ---------------- */
-
+const $ = s => document.querySelector(s);
+const reducido = matchMedia("(prefers-reduced-motion: reduce)");
 document.documentElement.classList.add("js");
+
+/* ---------------- contenido editable (desde /admin) ---------------- */
+let textos = [];
+function pintar(c) {
+  c = normalizar(c);
+  const m = c.metricas;
+  $("#cifras").innerHTML = m.map(x => `<li><b>${esc(x.valor)}</b><span>${esc(x.etiqueta)}</span></li>`).join("");
+  $("#cifras").classList.remove("cargando"); $("#cifras").removeAttribute("aria-busy");
+  const textosM = m.find(x => x.id === "textos");
+  document.querySelectorAll('[data-metrica-num="textos"]').forEach(el => { if (textosM) el.textContent = soloNumero(textosM.valor); });
+
+  const f = c.ajustes.podcastsFrecuencia.trim();
+  $("#frecPodcasts").textContent = f ? " y " + f : "";
+  if (imagenOk(c.ajustes.fotoLector)) $("#fotoLector").src = c.ajustes.fotoLector;
+
+  textos = c.textos;
+  $("#destacadas").innerHTML = textos.map((t, i) => `
+    <figure class="pieza${i === 0 ? " grande" : i > 2 ? " extra" : ""}">
+      <button type="button" data-leer="${i}" aria-label="Leer «${esc(t.titulo)}» aquí">
+        ${imagenOk(t.imagen) ? `<div class="img"><img src="${esc(t.imagen)}" alt="" loading="lazy"><span class="leer" aria-hidden="true">Leer aquí</span></div>`
+          : `<div class="img sin"><b>Foto pendiente</b><span class="leer" aria-hidden="true">Leer aquí</span></div>`}
+        <figcaption><span class="tipo">${esc(t.seccion)}</span><h4>${esc(t.titulo)}</h4><p class="autor">${esc(t.autor)}</p>${t.premio ? `<p class="premio">${esc(t.premio)}</p>` : ""}</figcaption>
+      </button>
+    </figure>`).join("");
+  $("#destacadas").removeAttribute("aria-busy");
+
+  $("#listaPremios").innerHTML = c.premios.map(p => `
+    <li class="premio-t">${p.anio ? `<span class="anio">${esc(p.anio)}</span>` : ""}<b>${esc(p.premio)}</b><span>${esc(p.autor)}</span></li>`).join("");
+  $("#listaPremios").removeAttribute("aria-busy");
+
+  $("#listaLogos").innerHTML = c.logos.map(l => {
+    const dentro = imagenOk(l.imagen) ? `<img src="${esc(l.imagen)}" alt="${esc(l.nombre)}">`
+      : `<span class="falta">${esc(l.nombre)}<small>Logo pendiente</small></span>`;
+    return `<li>${urlOk(l.url) ? `<a href="${esc(l.url)}" target="_blank" rel="noopener">${dentro}</a>` : dentro}</li>`;
+  }).join("");
+  $("#respaldo").hidden = !c.logos.length;
+}
+
+(async () => {
+  let previo = null;
+  try { previo = JSON.parse(localStorage.getItem(CONFIG.CLAVE_CACHE)); } catch (e) {}
+  if (previo && !vacio(previo)) pintar(previo);
+  try {
+    const { contenido } = await api("contenido");
+    const c = vacio(contenido) ? SEMILLA : contenido; // hoja recién instalada y todavía vacía
+    pintar(c);
+    try { localStorage.setItem(CONFIG.CLAVE_CACHE, JSON.stringify(c)); } catch (e) {}
+  } catch (e) {
+    console.warn("Universidades: no se pudo leer el contenido", e);
+    if (!previo) pintar(SEMILLA); // último recurso para que la página nunca quede en blanco
+  }
+})();
+
+// si una imagen remota no carga, se muestra el mismo aviso que cuando falta
+document.addEventListener("error", e => {
+  const img = e.target; if (img.tagName !== "IMG" || !img.closest(".pieza .img, .pl-ficha .img")) return;
+  const caja = img.parentElement; caja.classList.add("sin"); img.replaceWith(Object.assign(document.createElement(caja.closest(".pieza") ? "b" : "span"), { textContent: "Foto pendiente" }));
+}, true);
+
+/* ---------------- leer aquí mismo (F1) ---------------- */
+const panel = $("#panelLectura");
+let quienAbrio = null;
+function abrirTexto(t) {
+  const url = urlOk(t.url) ? t.url : CONFIG.SITIO;
+  $("#plSeccion").textContent = [t.seccion, t.autor].filter(Boolean).join(" · ");
+  if (CONFIG.LEER_EN_IFRAME && urlOk(t.url)) {
+    $("#plCuerpo").innerHTML = `<h2 id="plTitulo" class="sr">${esc(t.titulo)}</h2><iframe src="${esc(t.url)}" title="${esc(t.titulo)} en Perpetuo" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+  } else {
+    $("#plCuerpo").innerHTML = `
+      <article class="pl-ficha">
+        ${imagenOk(t.imagen) ? `<div class="img"><img src="${esc(t.imagen)}" alt=""></div>` : `<div class="img sin">Foto pendiente</div>`}
+        <div class="pl-txt">
+          <span class="tipo">${esc(t.seccion)}</span>
+          <h2 id="plTitulo">${esc(t.titulo)}</h2>
+          <p class="autor">${esc(t.autor)}</p>
+          ${t.premio ? `<p class="premio">${esc(t.premio)}</p>` : ""}
+          <a class="btn btn--azul" href="${esc(url)}" target="_blank" rel="noopener">Leer en Perpetuo
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+        </div>
+      </article>`;
+  }
+  $("#plCuerpo").scrollTop = 0;
+  quienAbrio = document.activeElement;
+  panel.showModal();
+  $("#plCerrar").focus();
+}
+function cerrarTexto() { if (panel.open) panel.close(); }
+panel.addEventListener("close", () => { $("#plCuerpo").innerHTML = ""; quienAbrio && quienAbrio.focus && quienAbrio.focus(); });
+$("#plCerrar").addEventListener("click", cerrarTexto);
+panel.addEventListener("click", e => { if (e.target === panel) cerrarTexto(); }); // clic afuera (en el fondo)
+$("#destacadas").addEventListener("click", e => { const b = e.target.closest("[data-leer]"); if (b) abrirTexto(textos[+b.dataset.leer]); });
+
+/* ---------------- línea del tiempo a escala real (E4) ---------------- */
+(() => {
+  const hitos = [...document.querySelectorAll("#lineaT .hito")];
+  const anios = hitos.map(h => +h.dataset.anio);
+  const a0 = Math.min(...anios), a1 = Math.max(...anios);
+  // el eje va de 16px a (100% - 16px); el punto se coloca con calc() para respetar ese margen
+  const pos = a => `calc(16px + (100% - 32px) * ${((a - a0) / (a1 - a0)).toFixed(4)})`;
+  const ol = $("#lineaT");
+  const eje = document.createElement("li"); eje.className = "eje"; eje.setAttribute("aria-hidden", "true");
+  for (let d = Math.ceil(a0 / 10) * 10; d <= a1; d += 10) {
+    const t = document.createElement("i"); t.className = "tic";
+    t.style.left = (100 * (d - a0) / (a1 - a0)).toFixed(3) + "%"; eje.appendChild(t);
+  }
+  ol.prepend(eje);
+  hitos.forEach((h, i) => {
+    const x = (anios[i] - a0) / (a1 - a0);
+    h.style.left = pos(anios[i]);
+    h.classList.add(i % 2 ? "arriba" : "abajo"); // los años muy cercanos se alternan arriba y abajo para no encimarse
+    if (x < .12) h.classList.add("izq"); else if (x > .88) h.classList.add("der");
+  });
+})();
+
+/* ---------------- los cuatro pasos (F2) ---------------- */
+(() => {
+  const pasos = [...document.querySelectorAll(".paso")];
+  if (reducido.matches || !("IntersectionObserver" in window)) return;
+  pasos.forEach(p => p.classList.add("por-ver"));
+  let cola = Promise.resolve();
+  const io = new IntersectionObserver(entradas => {
+    entradas.filter(e => e.isIntersecting).sort((a, b) => pasos.indexOf(a.target) - pasos.indexOf(b.target)).forEach(e => {
+      io.unobserve(e.target);
+      // uno por uno: si varios entran a la vez, se revelan escalonados
+      cola = cola.then(() => new Promise(r => { e.target.classList.remove("por-ver"); setTimeout(r, 220); }));
+    });
+  }, { threshold: .35, rootMargin: "0px 0px -8% 0px" });
+  pasos.forEach(p => io.observe(p));
+})();
+
+/* ---------------- presentación (D1) ---------------- */
 const slides = [...document.querySelectorAll(".slide")];
-const indice = document.getElementById("indice"), puntos = document.getElementById("puntos");
-const atras = document.getElementById("atras"), sig = document.getElementById("sig"), sigTxt = document.getElementById("sigTxt");
+const indice = $("#indice"), puntos = $("#puntos"), contador = $("#contador");
+const atras = $("#atras"), sig = $("#sig");
 slides.forEach((sl, i) => {
   const n = sl.dataset.nombre;
   indice.insertAdjacentHTML("beforeend", `<li><a href="#${sl.id}">${i ? `<small>0${i}</small>` : ""}${n}</a></li>`);
-  puntos.insertAdjacentHTML("beforeend", `<li><button type="button" data-i="${i}" aria-label="Ir a ${n}"></button></li>`);
+  puntos.insertAdjacentHTML("beforeend", `<li><button type="button" data-i="${i}" aria-label="Ir a ${n}"><i></i><span class="nombre" aria-hidden="true">${n}</span></button></li>`);
 });
 let actual = -1;
 function ir(i, enfocar) {
   i = Math.max(0, Math.min(slides.length - 1, i));
   if (i === actual) return;
+  const haciaAtras = i < actual;
   actual = i;
-  slides.forEach((sl, k) => sl.classList.toggle("on", k === i));
+  slides.forEach((sl, k) => { sl.classList.toggle("on", k === i); sl.classList.toggle("atras", k === i && haciaAtras); });
   indice.querySelectorAll("a").forEach((a, k) => k === i ? a.setAttribute("aria-current", "step") : a.removeAttribute("aria-current"));
   puntos.querySelectorAll("button").forEach((b, k) => k === i ? b.setAttribute("aria-current", "step") : b.removeAttribute("aria-current"));
+  contador.textContent = (i + 1) + " / " + slides.length;
+  contador.setAttribute("aria-label", "Sección " + (i + 1) + " de " + slides.length + ": " + slides[i].dataset.nombre);
   atras.disabled = i === 0;
-  const ultimo = i === slides.length - 1;
-  sig.hidden = ultimo;
-  if (!ultimo) sigTxt.innerHTML = i === 0 ? "Ver la propuesta" : 'Siguiente<span class="nom">: ' + slides[i + 1].dataset.nombre + "</span>";
+  sig.disabled = i === slides.length - 1;
+  sig.setAttribute("aria-label", i < slides.length - 1 ? "Siguiente: " + slides[i + 1].dataset.nombre : "Última sección");
+  sig.classList.toggle("llama", i === 0);
   const act = indice.querySelectorAll("a")[i]; act && act.scrollIntoView({ block: "nearest", inline: "center" });
   if (location.hash.slice(1) !== slides[i].id) try { history.replaceState(null, "", "#" + slides[i].id); } catch (e) {}
   if (enfocar) {
@@ -535,18 +769,35 @@ document.addEventListener("click", e => {
 puntos.addEventListener("click", e => { const b = e.target.closest("button"); if (b) ir(+b.dataset.i, true); });
 atras.addEventListener("click", () => ir(actual - 1, true));
 sig.addEventListener("click", () => ir(actual + 1, true));
+
+// teclado: ← → cambian de sección; ↑ ↓ desplazan la página como siempre y, al llegar al borde, cambian de sección
+const alFinal = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
 document.addEventListener("keydown", e => {
-  if (e.target.closest("input, textarea") || e.metaKey || e.ctrlKey || e.altKey) return;
-  if (e.key === "ArrowRight") ir(actual + 1, true);
-  if (e.key === "ArrowLeft") ir(actual - 1, true);
+  if (panel.open || e.target.closest("input, textarea, select, .linea-scroll") || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === "ArrowRight" || e.key === "PageDown" && alFinal()) { e.preventDefault(); ir(actual + 1, true); }
+  else if (e.key === "ArrowLeft" || e.key === "PageUp" && window.scrollY <= 0) { e.preventDefault(); ir(actual - 1, true); }
+  else if (e.key === "ArrowDown" && alFinal() && actual < slides.length - 1) { e.preventDefault(); ir(actual + 1, true); }
+  else if (e.key === "ArrowUp" && window.scrollY <= 0 && actual > 0) { e.preventDefault(); ir(actual - 1, true); }
 });
+
+// swipe horizontal en móvil (el vertical sigue siendo scroll normal)
+let toque = null;
+document.addEventListener("touchstart", e => {
+  if (e.touches.length !== 1 || panel.open || e.target.closest(".linea-scroll, .indice, .riel")) { toque = null; return; }
+  toque = { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now() };
+}, { passive: true });
+document.addEventListener("touchend", e => {
+  if (!toque) return;
+  const dx = e.changedTouches[0].clientX - toque.x, dy = e.changedTouches[0].clientY - toque.y;
+  if (Math.abs(dx) > 60 && Math.abs(dx) > 1.6 * Math.abs(dy) && Date.now() - toque.t < 700) ir(actual + (dx < 0 ? 1 : -1), true);
+  toque = null;
+}, { passive: true });
+
 window.addEventListener("hashchange", () => { const i = porId(location.hash.slice(1)); if (i >= 0) ir(i, true); });
 ir(Math.max(0, porId(location.hash.slice(1))), false);
 
-/* muñecos: cada signo partido en cuerpo + extremidades (assets/partes). ox/oy: articulación en %; a: amplitud; b: contrafase. */
+/* muñecos animados: cada signo partido en cuerpo + extremidades (assets/partes). ox/oy: articulación en %; a: amplitud; b: contrafase. */
 const BICHOS = {
-  punto:         { w: 300, h: 267, p: [[19.7, 18.3, 14, 1], [75.2, 59.8, 14, 0], [37.7, 71.1, 18, 0], [59.2, 71.2, 18, 1]] },
-  coma:          { w: 187, h: 300, p: [[72.9, 78.1, 18, 1], [41.4, 81.8, 18, 0]] },
   exclamacion:   { w: 220, h: 300, p: [[67.6, 59.5, 14, 0], [27.9, 58.8, 14, 1], [57.8, 76.3, 18, 1], [25.4, 82.9, 18, 0]] },
   interrogacion: { w: 213, h: 300, p: [[56.3, 81.7, 18, 1], [27.4, 83.8, 18, 0]] }
 };
